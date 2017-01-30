@@ -77,8 +77,10 @@ echo "Installing Terminator... (Not the one from Terminator)"
 sleep 2
 sudo apt install terminator
 
-echo "Slack for the team!"
-python -mwebbrowser https://agilize.slack.com
+echo "Placeholder for Chrome (needs mirror)"
+echo "Placeholder for Slack Desktop (needs mirror)"
+echo "Placeholder for Visual Studio Code (needs mirror)"
+echo "Placeholder for PHPStorm (needs mirror)"
 
 echo "About Google Remote Desktop... You'll have to install it by yourself. Lemme open you the link for downloading it. "
 sleep 1
