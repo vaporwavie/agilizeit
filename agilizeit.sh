@@ -78,11 +78,6 @@ echo "Installing Terminator... (Not the one from Terminator)"
 sleep 2
 sudo apt install terminator
 
-echo "Google. Fucking. Chrome! "
-sleep 2
-wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /Downloads/chrome.deb"
-sudo gdebi -y chrome.deb
-
 echo "Slack for the team!"
 python -mwebbrowser https://agilize.slack.com
 
