@@ -4,10 +4,9 @@
 # Be sure to chmod +x this file and don't forget
 # that this will take time as fuck.
 #
-# luizaugustonickel at gmail dot com
+# Enjoy it!
 #
-# Enjoy!
-
+# luizaugustonickel at gmail dot com
 
 zenity --info --title "Agilize it!" --text "Welcome! This script will configure the whole Agilize environment in your machine.. \n Keep in mind that this may take a while, so grab a coffee and wait :)" --width=300 --height=200
 
