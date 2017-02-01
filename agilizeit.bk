@@ -13,9 +13,6 @@ zenity --warning --title "Agilize it!" --text "It is recommended to chmod +x agi
 
 zenity --info --title "Agilize it!" --text "Time to go! Press OK to make this thing burn!" --width=150 --height=100
 
-# TODO Bootstrap
-
-
 # Configurando seu ambiente
 
 echo " Updating your machine... "
