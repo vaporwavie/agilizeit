@@ -94,6 +94,12 @@ sleep 2
 wget -O Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
 dpkg -i Downloads/code.deb
 
+echo " Downloading and Installing Visual Studio Code... "
+sleep 2
+
+wget -O Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
+dpkg -i Downloads/code.deb
+
 # WIP (need testing)
 echo "Downloading and Installing Jetbrains Toolbox (So you can download their IDEs, like IDEA and PHPStorm)"
 wget -O Downloads/toolbox.tar.gz "https://dl.dropboxusercontent.com/content_link/66lzGkamsrt3fa9zuVpNbsfSoo2BGelptVlbmxT2jaWxdd4pKdmias3otFQlcWVD/file?dl=1"
