@@ -24,12 +24,8 @@ menu=$(zenity --title "Agilize it!"  --list  --text "Escolha os pacotes que dese
                                             FALSE "vscode" "Instalar o Visual Studio Code"\
                                                 FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
                                                     FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                        FALSE "sudoers" "Garantir privilégios pro sudoers"\
                                                         --separator=":" --width=500 --height=500)
-
-# Mockup of a selected package
-# if [[ $menu =~ "ID" ]]; then
-#        sudo apt-get -y install PACKAGE_INSTALL
-#    fi
 
 # Configurando seu ambiente
 
@@ -46,7 +42,7 @@ if [[ $menu =~ "git" ]]; then
 if [[ $menu =~ "docker" ]]; then
     echo " Instalando o Docker e o Docker Compose "
     sleep 2
-    echo " Primeiro... O Docker Engine! "
+    echo " Primeiro... Docker Engine! "
     sleep 1
     sudo apt-get install -y curl \
         linux-image-extra-$(uname -r) \
@@ -109,24 +105,24 @@ if [[ $menu =~ "chrome" ]]; then
     echo " Baixando e Instalando o Chrome "
     sleep 2
 
-    wget -O Downloads/chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-    dpkg -i Downloads/chrome.deb
+    wget -O $HOME/Downloads/chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+    dpkg -i $HOME/Downloads/chrome.deb
     fi
 
 if [[ $menu =~ "slack" ]]; then
     echo " Baixando e Instalando o Slack... "
     sleep 2
     
-    wget -O Downloads/slack.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-2.4.2-amd64.deb"
-    dpkg -i Downloads/slack.deb
+    wget -O $HOME/Downloads/slack.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-2.4.2-amd64.deb"
+    dpkg -i $HOME/Downloads/slack.deb
     fi
 
 if [[ $menu =~ "vscode" ]]; then
     echo " Baixando e Instalando o VSCode..."
     sleep 2
 
-    wget -O Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
-    dpkg -i Downloads/code.deb
+    wget -O $HOME/Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
+    dpkg -i $HOME/Downloads/code.deb
     fi
 
 if [[ $menu =~ "jetbrains" ]]; then
@@ -134,9 +130,9 @@ if [[ $menu =~ "jetbrains" ]]; then
     echo "Baixando e Instalando o Jetbrains Toolbox (pra você escolher qual IDE da JetBrains você quer)"
     sleep 2
     # O link tá funcionando (Fev)
-    wget -O /Downloads/toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz"
-    tar -xvf /Downloads/toolbox.tar.gz
-    cd /Downloads/toolbox
+    wget -O $HOME/Downloads/toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz"
+    tar -xvf $HOME/Downloads/toolbox.tar.gz
+    cd $HOME/Downloads/toolbox
     chmod +x toolbox
     echo "Iniciando Toolbox..."
     sleep 2
@@ -144,10 +140,17 @@ if [[ $menu =~ "jetbrains" ]]; then
     fi
 
 if [[ $menu =~ "remote" ]]; then
-    # Gonna directly install it via crx, probably on next release
-    echo "Sobre o Google Remote Desktop... Não pude implementar aqui. O workaround no momento é instalar ele diretamente do Chrome. Bora lá!"
-    sleep 4
+    # Can't force install crx via terminal. Chrome Team blocked it.
+    echo "Abrindo a loja de extensões do Chrome... Bora lá!"
+    sleep 2
     python -mwebbrowser https://goo.gl/YFNOCF
     fi
 
-zenity --info --title "Ready to ROCK!" --text "Todos os programas selecionados foram instalados. Espero que tenha gostado, e não se esqueça de contribuir! xD"
+if [[ $menu =~ "sudoers" ]]; then
+    zenity --info --title "Sudoers" --text "Essa opção irá garantir permissões para o sudoers. \n Com isso, você não precisará digitar mais senha ao utilizar o comando sudo. " 2> /dev/null
+    # thx @RodolfoSilva :D
+    sudo echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
+    zenity --info --title "Sudoers" --text "Feito! Agora você não precisará mais usar a sua senha quando usar o sudo." 2> /dev/null
+fi
+
+zenity --info --title "Finalizado" --text "Não se esqueça de contribuir! :D \n github.com/vaporwavie/agilizeit " 2> /dev/null
