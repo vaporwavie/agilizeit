@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # This script builds the whole Agilize environment.
-# Be sure to chmod +x this file :)
 #
-# Enjoy it!
+# Enjoy!
 #
 # luizaugustonickel at gmail dot com
 
@@ -13,8 +12,15 @@ zenity --warning --title "Agilize it!" --text "É recomendado que se faça um ch
 
 zenity --info --title "Agilize it!" --text "Hora de começar! Pressione OK pra fazer esse negóço valer!" --width=150 --height=100
 
-# TODO Bootstrap
+# Mockup do Bootstrap
+menu=$(zenity --title "Agilize it!"  --list  --text "Escolha os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote"\
+        FALSE "ID" "DESCRIÇÃO DO PACOTE"\
+            --separator=":" --width=500 --height=500)
 
+# Mockup of a selected package
+# if [[ $menu =~ "ID" ]]; then
+#        sudo apt-get -y install PACKAGE_INSTALL
+#    fi
 
 # Configurando seu ambiente
 
