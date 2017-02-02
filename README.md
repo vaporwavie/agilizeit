@@ -13,7 +13,6 @@ I'm going to update it as the same rythm we include new programs and features to
 * Add SQL Dumping
 * Add Vim Bootstrap
 * Add SSH Keygen
-* Migrate to Python
 
 # Anything else?
 Uh, enjoy you guys!
