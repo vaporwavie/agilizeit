@@ -4,6 +4,10 @@ Hey! This repository is purely intended to my buds at Agilize. My main achieveme
 # Updates
 I'm going to update it as the same rythm we include new programs and features to use on development.
 
+# Looking
+![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/demo.png "Looks nice, eh?")
+
+
 # TODO
 * Add repository cloning
 * Add SQL Dumping
