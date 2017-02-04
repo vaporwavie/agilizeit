@@ -12,7 +12,7 @@ zenity --warning --title "Agilize it!" --text "É recomendado que se faça um ch
 
 zenity --info --title "Agilize it!" --text "Hora de começar! Pressione OK pra fazer esse negóço valer!" --width=150 --height=100 2> /dev/null
 
-# Mockup do Bootstrap
+# Package selection menu *first version*
 menu=$(zenity --title "Agilize it!"  --list  --text "Escolha os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote"\
             FALSE "gitwithflow" "Instalar o Git + Git Flow"\
                     FALSE "docker" "Instalar o Docker + Compose"\
