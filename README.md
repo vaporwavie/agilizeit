@@ -11,8 +11,6 @@ I'm going to update it as the same rythm we include new programs and features to
 # TODO
 * Add repository cloning
 * Add SQL Dumping
-* Add Vim Bootstrap
-* Add SSH Keygen
 
 # Anything else?
 Uh, enjoy you guys!
