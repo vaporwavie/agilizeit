@@ -6,14 +6,8 @@
 #
 # luizaugustonickel at gmail dot com
 
-zenity --info --title "Agilize it!" --text "Hey, bem vindo! Agora você poderá instalar o que precisa do ambiente Agilize no seu novo sistema/máquina :D" --width=300 --height=200 2> /dev/null
-
-zenity --warning --title "Agilize it!" --text "É recomendado que se faça um chmod +x agilizeit.sh antes de executar esse script. \n \n Por ser a primeira versão lançada, bugs podem ocorrer, e estes devem ser reportados/corrigidos :) " --width=300 --height=200 2> /dev/null
-
-zenity --info --title "Agilize it!" --text "Hora de começar! Pressione OK pra fazer esse negóço valer!" --width=150 --height=100 2> /dev/null
-
 # Package selection menu
-menu=$(zenity --title "Agilize it!"  --list  --text "Escolha os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote"\
+menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote"\
             FALSE "gitwithflow" "Instalar o Git + Git Flow"\
                     FALSE "docker" "Instalar o Docker + Compose"\
                         FALSE "apache5" "Instalar o Apache + PHP5"\
@@ -24,15 +18,15 @@ menu=$(zenity --title "Agilize it!"  --list  --text "Escolha os pacotes que dese
                                             FALSE "vscode" "Instalar o Visual Studio Code"\
                                                 FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
                                                     FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                        FALSE "operador" "Clonar operador_webapp (WIP)"\
-                                                            FALSE "sudoers" "Garantir privilégios pro sudoers"\
+                                                        FALSE "oprd_teste" "Clonar operador_webapp"\
+                                                            FALSE "clonar" "Clonar repositórios (WIP)"\
+                                                                FALSE "sudoers" "Garantir privilégios pro sudoers"\
                                                             --separator=":" --width=500 --height=500)
-
 # Configurando seu ambiente
 
-echo " Atualizando sua máquina... "
-sleep 2
-sudo apt update && sudo apt -y upgrade
+#echo " Atualizando sua máquina... "
+#sleep 2
+#sudo apt update && sudo apt -y upgrade
 
 if [[ $menu =~ "git" ]]; then
     echo " Instalando o Git e o Git Flow "
@@ -147,15 +141,22 @@ if [[ $menu =~ "remote" ]]; then
     python -mwebbrowser https://goo.gl/YFNOCF
     fi
 
-if [[ $menu =~ "operador" ]]; then
+if [[ $menu =~ "oprd_teste" ]]; then
     # tbd. Totally doable, but needs more testing
     gitname=$(zenity --entry --title "Configurando seu nome" --text "Qual é o seu nome?";) 2> /dev/null
-    # git config --global user.name $gitname
+    git config --global user.name $gitname
     echo $gitname
     gitemail=$(zenity --entry --title "Configurando seu email" --text "Qual é o seu email?";) 2> /dev/null
-    # git config --global user.email $gitemail
+    git config --global user.email $gitemail
     echo $gitemail
-    zenity --info --title "Clonar operador_webapp" --text "Essa feature ainda está em desenvolvimento. Ela virá junto com a clonagem dos outros repositórios também. :D" 2> /dev/null
+    cloning=$(git clone git@bitbucket.org:apimenti/operador_webapp.git $HOME/agilize.clones/operador/ || zenity --error --title "Clonar operador" --text "Ocorreu um erro ao clonar o repositório do operador. Verifique se ele já foi clonado ou tente novamente.")
+    if [[ $cloning ]]; then
+    zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    fi
+    fi
+
+if [[ $menu =~ "clonar" ]]; then
+    echo $HOME
     fi
 
 if [[ $menu =~ "sudoers" ]]; then
