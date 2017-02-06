@@ -19,14 +19,14 @@ menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que de
                                                 FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
                                                     FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
                                                         FALSE "oprd_teste" "Clonar operador_webapp"\
-                                                            FALSE "clonar" "Clonar repositórios (WIP)"\
+                                                           #  FALSE "clonar" "Clonar repositórios (WIP)"\
                                                                 FALSE "sudoers" "Garantir privilégios pro sudoers"\
                                                             --separator=":" --width=500 --height=500)
 # Configurando seu ambiente
 
-#echo " Atualizando sua máquina... "
-#sleep 2
-#sudo apt update && sudo apt -y upgrade
+echo " Atualizando sua máquina... "
+sleep 2
+sudo apt update && sudo apt -y upgrade
 
 if [[ $menu =~ "git" ]]; then
     echo " Instalando o Git e o Git Flow "
