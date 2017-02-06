@@ -12,7 +12,7 @@ zenity --warning --title "Agilize it!" --text "É recomendado que se faça um ch
 
 zenity --info --title "Agilize it!" --text "Hora de começar! Pressione OK pra fazer esse negóço valer!" --width=150 --height=100 2> /dev/null
 
-# Package selection menu *first version*
+# Package selection menu
 menu=$(zenity --title "Agilize it!"  --list  --text "Escolha os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote"\
             FALSE "gitwithflow" "Instalar o Git + Git Flow"\
                     FALSE "docker" "Instalar o Docker + Compose"\
@@ -24,8 +24,9 @@ menu=$(zenity --title "Agilize it!"  --list  --text "Escolha os pacotes que dese
                                             FALSE "vscode" "Instalar o Visual Studio Code"\
                                                 FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
                                                     FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                        FALSE "sudoers" "Garantir privilégios pro sudoers"\
-                                                        --separator=":" --width=500 --height=500)
+                                                        FALSE "operador" "Clonar operador_webapp (WIP)"\
+                                                            FALSE "sudoers" "Garantir privilégios pro sudoers"\
+                                                            --separator=":" --width=500 --height=500)
 
 # Configurando seu ambiente
 
@@ -112,7 +113,7 @@ if [[ $menu =~ "chrome" ]]; then
 if [[ $menu =~ "slack" ]]; then
     echo " Baixando e Instalando o Slack... "
     sleep 2
-    
+
     wget -O $HOME/Downloads/slack.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-2.4.2-amd64.deb"
     dpkg -i $HOME/Downloads/slack.deb
     fi
@@ -144,6 +145,17 @@ if [[ $menu =~ "remote" ]]; then
     echo "Abrindo a loja de extensões do Chrome... Bora lá!"
     sleep 2
     python -mwebbrowser https://goo.gl/YFNOCF
+    fi
+
+if [[ $menu =~ "operador" ]]; then
+    # tbd. Totally doable, but needs more testing
+    gitname=$(zenity --entry --title "Configurando seu nome" --text "Qual é o seu nome?";) 2> /dev/null
+    # git config --global user.name $gitname
+    echo $gitname
+    gitemail=$(zenity --entry --title "Configurando seu email" --text "Qual é o seu email?";) 2> /dev/null
+    # git config --global user.email $gitemail
+    echo $gitemail
+    zenity --info --title "Clonar operador_webapp" --text "Essa feature ainda está em desenvolvimento. Ela virá junto com a clonagem dos outros repositórios também. :D" 2> /dev/null
     fi
 
 if [[ $menu =~ "sudoers" ]]; then
