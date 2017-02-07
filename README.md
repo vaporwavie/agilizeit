@@ -5,12 +5,12 @@ Hey! This repository is purely intended to my buds at Agilize. My main achieveme
 I'm going to update it as the same rythm we include new programs and features to use on development.
 
 # Looking
-![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/demo.png "Looks nice, eh?")
+![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/agilizeit.png "Looks nice, eh?")
 
 
 # TODO
 * Add SQL Dumping
-Feature request (if any): [Issues/Requests](https://github.com/vaporwavie/agilizeit/issues)
+    Feature request (if any): [Issues/Requests](https://github.com/vaporwavie/agilizeit/issues)
 
 # Anything else?
 Enjoy it!
