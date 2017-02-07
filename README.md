@@ -10,7 +10,7 @@ I'm going to update it as the same rythm we include new programs and features to
 
 # TODO
 * Add SQL Dumping
-    Feature request (if any): [Issues/Requests](https://github.com/vaporwavie/agilizeit/issues)
+* Feature request (if any): [Issues/Requests](https://github.com/vaporwavie/agilizeit/issues)
 
 # Anything else?
 Enjoy it!
