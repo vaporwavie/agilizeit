@@ -8,7 +8,7 @@
 
 # Tela principal
 
-menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote"\
+menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Fechar"\
             FALSE "gitwithflow" "Instalar o Git + Git Flow"\
                 FALSE "docker" "Instalar o Docker + Compose"\
                     FALSE "apache5" "Instalar o Apache + PHP5"\
@@ -195,3 +195,4 @@ if [[ $menu =~ "sudoers" ]]; then
 fi
 
 zenity --info --title "Finalizado" --text "Não se esqueça de contribuir! :D \n github.com/vaporwavie/agilizeit " 2> /dev/null
+
