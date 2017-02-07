@@ -6,20 +6,21 @@
 #
 # luizaugustonickel at gmail dot com
 
-# Package selection menu
+# Tela principal
+
 menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote"\
             FALSE "gitwithflow" "Instalar o Git + Git Flow"\
-                    FALSE "docker" "Instalar o Docker + Compose"\
-                        FALSE "apache5" "Instalar o Apache + PHP5"\
-                            FALSE "javen" "Instalar o Java + Maven"\
-                                FALSE "exterminador" "Instalar o Terminator"\
-                                    FALSE "slack" "Instalar o Slack"\
-                                        FALSE "chrome" "Instalar o Chrome"\
-                                            FALSE "vscode" "Instalar o Visual Studio Code"\
-                                                FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
-                                                    FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                        FALSE "oprd_teste" "Clonar operador_webapp"\
-                                                            FALSE "sudoers" "Garantir privilégios pro sudoers"\
+                FALSE "docker" "Instalar o Docker + Compose"\
+                    FALSE "apache5" "Instalar o Apache + PHP5"\
+                        FALSE "javen" "Instalar o Java + Maven"\
+                            FALSE "exterminador" "Instalar o Terminator"\
+                                FALSE "slack" "Instalar o Slack"\
+                                    FALSE "chrome" "Instalar o Chrome"\
+                                        FALSE "vscode" "Instalar o Visual Studio Code"\
+                                            FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
+                                                FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                    FALSE "clonar" "Clonar repositórios"\
+                                                        FALSE "sudoers" "Garantir privilégios pro sudoers"\
                                                             --separator=":" --width=500 --height=500)
 # Configurando seu ambiente
 
@@ -120,7 +121,6 @@ if [[ $menu =~ "vscode" ]]; then
     fi
 
 if [[ $menu =~ "jetbrains" ]]; then
-    # WIP
     echo "Baixando e Instalando o Jetbrains Toolbox (pra você escolher qual IDE da JetBrains você quer)"
     sleep 2
     # O link tá funcionando (Fev)
@@ -140,22 +140,51 @@ if [[ $menu =~ "remote" ]]; then
     python -mwebbrowser https://goo.gl/YFNOCF
     fi
 
-if [[ $menu =~ "oprd_teste" ]]; then
-    # tbd. Totally doable, but needs more testing
-    gitname=$(zenity --entry --title "Configurando seu nome" --text "Qual é o seu nome?";) 2> /dev/null
+if [[ $menu =~ "clonar" ]]; then
+    menu=$(zenity --title "Clonar Repositórios"  --list  --text "Selecione os repositórios a serem clonados." --checklist  --column "Selecionar" --column "ID" --column "Repositório"\
+            FALSE "backend" "Clonar o backend (api/agilize)"\
+                FALSE "operador" "Clonar o web app do operador"\
+                    FALSE "cliente" "Clonar o web app do cliente"\
+                        FALSE "mobile" "Clonar o app mobile"\
+                        --separator=":" --width=400 --height=300)
+    fi
+
+if [[ $menu ]]; then
+    # Deve haver uma verificação pela existência do nome e do e-mail
+    gitname=$(zenity --entry --title "Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100;)
     git config --global user.name $gitname
     echo $gitname
-    gitemail=$(zenity --entry --title "Configurando seu email" --text "Qual é o seu email?";) 2> /dev/null
+    gitemail=$(zenity --entry --title "Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100;)
     git config --global user.email $gitemail
     echo $gitemail
+    fi
+
+if [[ $menu =~ "backend" ]]; then
+    cloning=$(git clone git@bitbucket.org:apimenti/agilize.git $HOME/agilize.clones/backend/ || zenity --error --title "Clonar backend" --text "Ocorreu um erro ao clonar o repositório do backend. Verifique se ele já foi clonado ou tente novamente.")
+    if [[ $cloning ]]; then
+    zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    fi
+    fi
+
+if [[ $menu =~ "operador" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/operador_webapp.git $HOME/agilize.clones/operador/ || zenity --error --title "Clonar operador" --text "Ocorreu um erro ao clonar o repositório do operador. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
     zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
-if [[ $menu =~ "clonar" ]]; then
-    echo $HOME
+if [[ $menu =~ "cliente" ]]; then
+    cloning=$(git clone git@bitbucket.org:apimenti/cliente_webapp.git $HOME/agilize.clones/cliente/ || zenity --error --title "Clonar cliente" --text "Ocorreu um erro ao clonar o repositório do cliente. Verifique se ele já foi clonado ou tente novamente.")
+    if [[ $cloning ]]; then
+    zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    fi
+    fi
+
+if [[ $menu =~ "mobile" ]]; then
+    cloning=$(git clone git@bitbucket.org:apimenti/agilize_mobile.git $HOME/agilize.clones/mobile/ || zenity --error --title "Clonar mobile" --text "Ocorreu um erro ao clonar o repositório do app mobile. Verifique se ele já foi clonado ou tente novamente.")
+    if [[ $cloning ]]; then
+    zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    fi
     fi
 
 if [[ $menu =~ "sudoers" ]]; then
