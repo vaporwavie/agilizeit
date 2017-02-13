@@ -17,11 +17,12 @@ menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que de
                                 FALSE "slack" "Instalar o Slack"\
                                     FALSE "chrome" "Instalar o Chrome"\
                                         FALSE "vscode" "Instalar o Visual Studio Code"\
-                                            FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
-                                                FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                    FALSE "clonar" "Clonar repositórios"\
-                                                        FALSE "sudoers" "Garantir privilégios pro sudoers"\
-                                                            --separator=":" --width=500 --height=500)
+                                            FALSE "eclipse" "Instalar o Eclipse"\
+                                                FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
+                                                    FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                        FALSE "clonar" "Clonar repositórios"\
+                                                            FALSE "sudoers" "Garantir privilégios pro sudoers"\
+                                                                --separator=":" --width=500 --height=500)
 # Configurando seu ambiente
 
 echo " Atualizando sua máquina... "
@@ -119,6 +120,13 @@ if [[ $menu =~ "vscode" ]]; then
 
     wget -O $HOME/Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
     dpkg -i $HOME/Downloads/code.deb
+    fi
+
+if [[ $menu =~ "eclipse" ]]; then
+    wget -O $HOME/Downloads/eclipse.tar.gz "http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz"
+    tar -xvf eclipse.tar.gz
+    cd eclipse
+    ./eclipse
     fi
 
 if [[ $menu =~ "jetbrains" ]]; then
