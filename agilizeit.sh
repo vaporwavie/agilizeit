@@ -13,7 +13,7 @@ menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que de
                 FALSE "docker" "Instalar o Docker + Compose"\
                     FALSE "apache5" "Instalar o Apache + PHP5"\
                         FALSE "javen" "Instalar o Java + Maven"\
-                            FALSE "exterminador" "Instalar o Terminator"\
+                            FALSE "exterminador" "Instalar /o Terminator"\
                                 FALSE "slack" "Instalar o Slack"\
                                     FALSE "chrome" "Instalar o Chrome"\
                                         FALSE "vscode" "Instalar o Visual Studio Code"\
@@ -27,6 +27,7 @@ menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que de
 echo " Atualizando sua máquina... "
 sleep 2
 sudo apt update && sudo apt -y upgrade
+clear
 
 if [[ $menu =~ "git" ]]; then
     echo " Instalando o Git e o Git Flow "
@@ -150,15 +151,20 @@ if [[ $menu =~ "clonar" ]]; then
     fi
 
 if [[ $menu ]]; then
-    # Deve haver uma verificação pela existência do nome e do e-mail
+    checkname=$(git config --global user.name)
+    checkemail=$(git config --global user.email)
+    if [[ $checkname != null && $checkemail != null ]]; then
+    echo "O username do Github ($checkname) já foi configurado"
+    echo "O email do Github ($checkemail) já foi configurado"
+    fi
+    if [[ $checkname = null && $checkemail = null ]]; then
     gitname=$(zenity --entry --title "Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100;)
     git config --global user.name $gitname
-    echo $gitname
     gitemail=$(zenity --entry --title "Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100;)
     git config --global user.email $gitemail
     echo $gitemail
     fi
-
+    fi
 if [[ $menu =~ "backend" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/agilize.git $HOME/agilize.clones/backend/ || zenity --error --title "Clonar backend" --text "Ocorreu um erro ao clonar o repositório do backend. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
