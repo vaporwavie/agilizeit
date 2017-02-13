@@ -13,7 +13,7 @@ menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que de
                 FALSE "docker" "Instalar o Docker + Compose"\
                     FALSE "apache5" "Instalar o Apache + PHP5"\
                         FALSE "javen" "Instalar o Java + Maven"\
-                            FALSE "exterminador" "Instalar /o Terminator"\
+                            FALSE "exterminador" "Instalar o Terminator"\
                                 FALSE "slack" "Instalar o Slack"\
                                     FALSE "chrome" "Instalar o Chrome"\
                                         FALSE "vscode" "Instalar o Visual Studio Code"\
