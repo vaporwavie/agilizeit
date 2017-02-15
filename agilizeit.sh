@@ -159,19 +159,18 @@ if [[ $menu =~ "clonar" ]]; then
     fi
 
 if [[ $menu ]]; then
-    checkname=$(git config --global user.name)
-    checkemail=$(git config --global user.email)
-    if [[ $checkname != null && $checkemail != null ]]; then
-    echo "O username do Github ($checkname) já foi configurado"
-    echo "O email do Github ($checkemail) já foi configurado"
+    nome=$(git config --global user.name $gitname)
+    email=$(git config --global user.email $gitemail)
+    verifica=$(echo $nome && echo $email)
+    if [[ $verifica ]]; then
+    zenity --info --title "Clonar repositório" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email" 2> /dev/null
     fi
-    if [[ $checkname = null && $checkemail = null ]]; then
-    gitname=$(zenity --entry --title "Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100;)
+    else
+    gitname=$(zenity --entry --title "Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100)
     git config --global user.name $gitname
-    gitemail=$(zenity --entry --title "Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100;)
+    gitemail=$(zenity --entry --title "Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100)
     git config --global user.email $gitemail
     echo $gitemail
-    fi
     fi
 if [[ $menu =~ "backend" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/agilize.git $HOME/agilize.clones/backend/ || zenity --error --title "Clonar backend" --text "Ocorreu um erro ao clonar o repositório do backend. Verifique se ele já foi clonado ou tente novamente.")
