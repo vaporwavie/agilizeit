@@ -1,10 +1,10 @@
 # Agilize it!
-Hey! This repository is purely intended to my buds at Agilize. My main achievement doing this script was just to automatize the whole environment installation proccess that we always pass when a system reinstalation is needed or something. 
+For outsiders: Hey! This repository is purely intended to my buds at Agilize. My main achievement doing this script was just to automatize the whole environment installation proccess that we always pass when a system reinstalation is needed or something. 
 
 # Updates
-I'm going to update it as the same rythm we include new programs and features to use on development.
+O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacotes básicos já estão devidamente configurados :)
 
-# Looking
+# Demonstração
 ![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/agilizeit.png "Looks nice, eh?")
 
 
@@ -27,4 +27,4 @@ De acordo com os reports feitos por @calison25, existem algumas coisas a serem i
 * Docker não instala corretamente
 
 # Anything else?
-Enjoy it!
+Enjoy!
