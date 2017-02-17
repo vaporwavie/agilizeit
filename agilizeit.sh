@@ -8,27 +8,27 @@
 
 # Tela principal
 
-menu=$(zenity --title "Agilize it!"  --list  --text "Selecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Fechar"\
-            FALSE "gitwithflow" "Instalar o Git + Git Flow"\
-                FALSE "docker" "Instalar o Docker + Compose"\
-                    FALSE "apache5" "Instalar o Apache + PHP5"\
-                        FALSE "javen" "Instalar o Java + Maven"\
-                            FALSE "exterminador" "Instalar o Terminator"\
-                                FALSE "slack" "Instalar o Slack"\
-                                    FALSE "chrome" "Instalar o Chrome"\
-                                        FALSE "vscode" "Instalar o Visual Studio Code"\
-                                            FALSE "eclipse" "Instalar o Eclipse"\
-                                                FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
-                                                    FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                        FALSE "clonar" "Clonar repositórios"\
-                                                            FALSE "sudoers" "Garantir privilégios pro sudoers"\
-                                                                --separator=":" --width=500 --height=500)
+menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Fechar"\
+        FALSE "gitwithflow" "Instalar o Git + Git Flow"\
+            FALSE "docker" "Instalar o Docker + Compose"\
+                FALSE "apache5" "Instalar o Apache + PHP5"\
+                    FALSE "javen" "Instalar o Java + Maven"\
+                        FALSE "exterminador" "Instalar o Terminator"\
+                            FALSE "slack" "Instalar o Slack"\
+                                FALSE "chrome" "Instalar o Chrome"\
+                                    FALSE "vscode" "Instalar o Visual Studio Code"\
+                                        FALSE "eclipse" "Instalar o Eclipse"\
+                                            FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
+                                                FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                    FALSE "clonar" "Clonar repositórios"\
+                                                        FALSE "sudoers" "Garantir privilégios pro sudoers"\
+                                                            --separator=":" --width=500 --height=500)
 # Configurando seu ambiente
 
-echo " Atualizando sua máquina... "
-sleep 2
-sudo apt update && sudo apt -y upgrade
-clear
+ echo " Atualizando sua máquina... "
+ sleep 2
+ sudo apt update && sudo apt -y upgrade
+ clear
 
 if [[ $menu =~ "git" ]]; then
     echo " Instalando o Git e o Git Flow "
@@ -37,33 +37,20 @@ if [[ $menu =~ "git" ]]; then
     fi
 
 if [[ $menu =~ "docker" ]]; then
-    echo " Instalando o Docker e o Docker Compose "
-    sleep 2
-    echo " Primeiro... Docker Engine! "
+    zenity --info --title "Docker" --text "O docker será instalado pelo seu script dedicado. \n Espere e vá fazer seu café!" 2> /dev/null
     sleep 1
-    sudo apt-get install -y curl \
-        linux-image-extra-$(uname -r) \
-            linux-image-extra-virtual
-    sudo apt-get install -y apt-transport-https \
-                           ca-certificates
-    sudo curl -fsSL https://yum.dockerproject.org/gpg | sudo apt-key add -
-    sudo add-apt-repository \
-           "deb https://apt.dockerproject.org/repo/ \
-                  ubuntu-$(lsb_release -cs) \
-                         main"
-    sudo apt-get -y install docker-engine
-
-    echo " Agora... Docker Compose! "
-    sleep 1
+    # ./docker.sh
+    zenity --info --title "Docker" --text "Done! Agora o compose" 2> /dev/null
     curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
-
-    echo " Verificando se tá tudo bem com o compose"
-    sleep 2
-    docker-compose --version
-
-    echo " Done! "
-    sleep 1
+    chmod +x /usr/local/bin/docker-compose
+    vercompose=$(docker-compose --version)
+    echo $vercompose
+    if [[ $vercompose = false ]]; then
+        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nDebug pra encher o saco de @vaporwavie: $vercompose"
+    fi
+    if [[ $vercompose ]]; then
+        zenity --info --title "Aviso - Docker Compose" --text "O docker compose parece estar funcionando sem problemas.\nDebug: $vercompose" 2> /dev/null
+    fi
     fi
 
 if [[ $menu =~ "apache5" ]]; then
@@ -84,7 +71,6 @@ if [[ $menu =~ "javen" ]]; then
     sudo add-apt-repository -y ppa:webupd8team/java
     sudo apt update && sudo apt install -y oracle-java8-installer
     sudo apt install -y oracle-java8-set-default
-
     echo " Instalando Maven... "
     sleep 2
     sudo apt install -y maven
@@ -132,13 +118,11 @@ if [[ $menu =~ "eclipse" ]]; then
 if [[ $menu =~ "jetbrains" ]]; then
     echo "Baixando e Instalando o Jetbrains Toolbox (pra você escolher qual IDE da JetBrains você quer)"
     sleep 2
-    # O link tá funcionando (Fev)
-    wget -O $HOME/Downloads/toolbox.tar.gz "https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.1.2143.tar.gz"
-    tar -xvf $HOME/Downloads/toolbox.tar.gz
-    cd $HOME/Downloads/toolbox
-    chmod +x toolbox
+    wget -O $HOME/Downloads/toolbox "http://192.168.0.39/toolbox"
+    chmod +x $HOME/Downloads/toolbox
     echo "Iniciando Toolbox..."
     sleep 2
+    cd $HOME/Downloads
     ./toolbox
     fi
 
@@ -150,7 +134,7 @@ if [[ $menu =~ "remote" ]]; then
     fi
 
 if [[ $menu =~ "clonar" ]]; then
-    menu=$(zenity --title "Clonar Repositórios"  --list  --text "Selecione os repositórios a serem clonados." --checklist  --column "Selecionar" --column "ID" --column "Repositório"\
+    clonemenu=$(zenity --title "Clonar Repositórios"  --list  --text "Selecione os repositórios a serem clonados." --checklist  --column "Selecionar" --column "ID" --column "Repositório" --ok-label="OK" --cancel-label="Fechar"\
             FALSE "backend" "Clonar o backend (api/agilize)"\
                 FALSE "operador" "Clonar o web app do operador"\
                     FALSE "cliente" "Clonar o web app do cliente"\
@@ -158,54 +142,54 @@ if [[ $menu =~ "clonar" ]]; then
                         --separator=":" --width=400 --height=300)
     fi
 
-if [[ $menu ]]; then
+if [[ $clonemenu ]]; then
     nome=$(git config --global user.name $gitname)
     email=$(git config --global user.email $gitemail)
     verifica=$(echo $nome && echo $email)
     if [[ $verifica ]]; then
-    zenity --info --title "Clonar repositório" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email" 2> /dev/null
+    zenity --info --title "Aviso - Clonar Repositórios" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email" 2> /dev/null
     fi
-    else
-    gitname=$(zenity --entry --title "Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100)
+    if [[ $verifica = false ]]; then
+    gitname=$(zenity --entry --title "Git - Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100)
     git config --global user.name $gitname
-    gitemail=$(zenity --entry --title "Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100)
+    gitemail=$(zenity --entry --title "Git - Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100)
     git config --global user.email $gitemail
     echo $gitemail
     fi
-if [[ $menu =~ "backend" ]]; then
+fi
+if [[ $clonemenu =~ "backend" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/agilize.git $HOME/agilize.clones/backend/ || zenity --error --title "Clonar backend" --text "Ocorreu um erro ao clonar o repositório do backend. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    zenity --info --title "Clonar repositórios - Backend" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
-if [[ $menu =~ "operador" ]]; then
+if [[ $clonemenu =~ "operador" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/operador_webapp.git $HOME/agilize.clones/operador/ || zenity --error --title "Clonar operador" --text "Ocorreu um erro ao clonar o repositório do operador. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    zenity --info --title "Clonar repositórios - Operador" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
-if [[ $menu =~ "cliente" ]]; then
+if [[ $clonemenu =~ "cliente" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/cliente_webapp.git $HOME/agilize.clones/cliente/ || zenity --error --title "Clonar cliente" --text "Ocorreu um erro ao clonar o repositório do cliente. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    zenity --info --title "Clonar repositórios - Cliente" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
-if [[ $menu =~ "mobile" ]]; then
+if [[ $clonemenu =~ "mobile" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/agilize_mobile.git $HOME/agilize.clones/mobile/ || zenity --error --title "Clonar mobile" --text "Ocorreu um erro ao clonar o repositório do app mobile. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    zenity --info --title "Clonar repositórios - Mobile" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
-if [[ $menu =~ "sudoers" ]]; then
-    zenity --info --title "Sudoers" --text "Essa opção irá garantir permissões para o sudoers. \n Com isso, você não precisará digitar mais senha ao utilizar o comando sudo. " 2> /dev/null
+if [[ $clonemenu =~ "sudoers" ]]; then
+    zenity --info --title "Extras - Sudoers" --text "Essa opção irá garantir permissões para o sudoers. \n Com isso, você não precisará digitar mais senha ao utilizar o comando sudo. " 2> /dev/null
     # thx @RodolfoSilva :D
     sudo echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
-    zenity --info --title "Sudoers" --text "Feito! Agora você não precisará mais usar a sua senha quando usar o sudo." 2> /dev/null
-fi
+    zenity --info --title "Extras - Sudoers" --text "Feito! Agora você não precisará mais usar a sua senha quando usar o sudo." 2> /dev/null
+    fi
 
-zenity --info --title "Finalizado" --text "Não se esqueça de contribuir! :D \n github.com/vaporwavie/agilizeit " 2> /dev/null
-
+zenity --info --title "Agilize it - Finalizado" --text "Reporte bugs e xingue Vaporwavie em github.com/vaporwavie/agilizeit" 2> /dev/null

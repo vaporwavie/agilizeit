@@ -5,12 +5,12 @@ For outsiders: Hey! This repository is purely intended to my buds at Agilize. My
 O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacotes básicos já estão devidamente configurados :)
 
 # Demonstração
-![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/agilizeit.png "Looks nice, eh?")
+![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/agilizeit.png )
 
 
 # TODO
 
-De acordo com os reports feitos por @calison25, existem algumas coisas a serem implementadas e corrigidas.
+De acordo com os reports feitos por @Calison25, **existem algumas coisas a serem implementadas e corrigidas.**
 
 ### Melhorias
 * Os diretórios em que os repositórios serão armazenados pode ser escolhido pelo usuário
@@ -24,8 +24,8 @@ De acordo com os reports feitos por @calison25, existem algumas coisas a serem i
 
 ### Bugs
 * Toolbox não mapeia da forma correta (isso é crítico)
-* Se o usuário apertar em "Fechar" ou em "OK" durante o menu de clonagem, o script pede os dados do git (?)
-* Docker não instala corretamente
+* Se o usuário apertar em "Fechar" ou em "OK" durante o menu de clonagem, o script pede os dados do git (?) **Fixed!**
+* Docker não instala corretamente **Fixed!**
 
-# Anything else?
-Enjoy!
+# Algo mais?
+Aproveitem! :D
