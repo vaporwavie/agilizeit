@@ -23,7 +23,7 @@ De acordo com os reports feitos por @Calison25, **existem algumas coisas a serem
 * Add SQL Dumping
 
 ### Bugs
-* Toolbox não mapeia da forma correta (isso é crítico)
+* Toolbox não mapeia da forma correta (isso é crítico) **Fixed!**
 * Se o usuário apertar em "Fechar" ou em "OK" durante o menu de clonagem, o script pede os dados do git (?) **Fixed!**
 * Docker não instala corretamente **Fixed!**
 
