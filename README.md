@@ -19,6 +19,7 @@ De acordo com os reports feitos por @calison25, existem algumas coisas a serem i
 * ZSH + Oh my zsh
 * PHP Composer + symlink
 * Spotify (lol) 
+* NPM + Nodejs
 * Add SQL Dumping
 
 ### Bugs
