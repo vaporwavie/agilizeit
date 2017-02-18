@@ -25,10 +25,10 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                                             --separator=":" --width=500 --height=500)
 # Configurando seu ambiente
 
- echo " Atualizando sua máquina... "
- sleep 2
- sudo apt update && sudo apt -y upgrade
- clear
+echo " Atualizando sua máquina... "
+sleep 2
+sudo apt update && sudo apt -y upgrade
+clear
 
 if [[ $menu =~ "git" ]]; then
     echo " Instalando o Git e o Git Flow "
@@ -39,7 +39,7 @@ if [[ $menu =~ "git" ]]; then
 if [[ $menu =~ "docker" ]]; then
     zenity --info --title "Docker" --text "O docker será instalado pelo seu script dedicado. \n Espere e vá fazer seu café!" 2> /dev/null
     sleep 1
-    # ./docker.sh
+    ./docker.sh
     zenity --info --title "Docker" --text "Done! Agora o compose" 2> /dev/null
     curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
