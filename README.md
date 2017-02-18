@@ -22,10 +22,5 @@ De acordo com os reports feitos por @Calison25, **existem algumas coisas a serem
 * NPM + Nodejs
 * Add SQL Dumping
 
-### Bugs
-* Toolbox não mapeia da forma correta (isso é crítico)
-* Se o usuário apertar em "Fechar" ou em "OK" durante o menu de clonagem, o script pede os dados do git (?) **Fixed!**
-* Docker não instala corretamente **Fixed!**
-
 # Algo mais?
 Aproveitem! :D
