@@ -17,16 +17,17 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                             FALSE "slack" "Instalar o Slack"\
                                 FALSE "chrome" "Instalar o Chrome"\
                                     FALSE "vscode" "Instalar o Visual Studio Code"\
-                                        FALSE "eclipse" "Instalar o Eclipse"\
-                                            FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
-                                                FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                    FALSE "clonar" "Clonar repositórios"\
-                                                        FALSE "sudoers" "Garantir privilégios pro sudoers"\
-                                                            --separator=":" --width=500 --height=500)
+                                        FALSE "spotify" "Instalar o Spotify"\
+                                            FALSE "eclipse" "Instalar o Eclipse"\
+                                                FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
+                                                    FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                        FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+                                                            FALSE "clonar" "Clonar repositórios"\
+                                                                 --separator=":" --width=500 --height=500)
 # Configurando seu ambiente
 
 echo " Atualizando sua máquina... "
-sleep 2
+sleep 1
 sudo apt update && sudo apt -y upgrade
 clear
 
@@ -108,6 +109,15 @@ if [[ $menu =~ "vscode" ]]; then
     dpkg -i $HOME/Downloads/code.deb
     fi
 
+if [[ $menu =~ "spotify" ]]; then
+    echo "Instalando o Spotify..."
+    sleep 2
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+    echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo apt update
+    sudo apt install -y spotify-client
+    fi
+
 if [[ $menu =~ "eclipse" ]]; then
     wget -O $HOME/Downloads/eclipse.tar.gz "http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz"
     tar -xvf eclipse.tar.gz
@@ -131,6 +141,22 @@ if [[ $menu =~ "remote" ]]; then
     echo "Abrindo a loja de extensões do Chrome... Bora lá!"
     sleep 2
     python -mwebbrowser https://goo.gl/YFNOCF
+    fi
+
+if [[ $menu =~ "ohmyzsh" ]]; then
+    echo "Instalando o zsh + oh-my-zsh..."
+    sleep 2
+    sudo apt install -y zsh
+    config=$(zsh --version)
+    if [[ $config ]]; then
+    echo $config;
+    fi
+    if [[ $config = false ]]; then
+    echo "Algo de errado aconteceu na instalação do ZSH. Debug pra vaporwavie: $config"
+    fi
+    # Configurando o ohmyzsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    chsh -s $(which zsh)
     fi
 
 if [[ $menu =~ "clonar" ]]; then
@@ -183,13 +209,6 @@ if [[ $clonemenu =~ "mobile" ]]; then
     if [[ $cloning ]]; then
     zenity --info --title "Clonar repositórios - Mobile" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
-    fi
-
-if [[ $clonemenu =~ "sudoers" ]]; then
-    zenity --info --title "Extras - Sudoers" --text "Essa opção irá garantir permissões para o sudoers. \n Com isso, você não precisará digitar mais senha ao utilizar o comando sudo. " 2> /dev/null
-    # thx @RodolfoSilva :D
-    sudo echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers
-    zenity --info --title "Extras - Sudoers" --text "Feito! Agora você não precisará mais usar a sua senha quando usar o sudo." 2> /dev/null
     fi
 
 zenity --info --title "Agilize it - Finalizado" --text "Reporte bugs e xingue Vaporwavie em github.com/vaporwavie/agilizeit" 2> /dev/null
