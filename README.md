@@ -16,9 +16,7 @@ De acordo com os reports feitos por @Calison25, **existem algumas coisas a serem
 * Os diretórios em que os repositórios serão armazenados pode ser escolhido pelo usuário
 * Possibilidade de escolher qual editor será usado para lidar com o git
 * Sublime Text
-* ZSH + Oh my zsh
-* PHP Composer + symlink
-* Spotify (lol) 
+* PHP Composer + symlink 
 * NPM + Nodejs
 * Add SQL Dumping
 
