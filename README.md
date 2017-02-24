@@ -7,6 +7,12 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 # Demonstração
 ![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/agilizeit.png )
 
+# Como usar
+* Encontre e baixe o último release [aqui](https://github.com/vaporwavie/agilizeit/releases)
+* Extraia o arquivo <code>agilizeit.tar.gz</code>
+* Pelo terminal, navegue para a pasta que fora extraída (provavelmente "agilizeit")
+* Dê um <code>chmod +x</code> em <code>agilizeit.sh</code> para garantir as permissões de execução corretamente.
+* Use!
 
 # TODO
 
