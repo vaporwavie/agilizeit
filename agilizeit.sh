@@ -19,22 +19,50 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                     FALSE "vscode" "Instalar o Visual Studio Code"\
                                         FALSE "spotify" "Instalar o Spotify"\
                                             FALSE "eclipse" "Instalar o Eclipse"\
-                                                FALSE "jetbrains" "Instalar o Jetbrains Toolbox"\
-                                                    FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                        FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
-                                                            FALSE "clonar" "Clonar repositórios"\
-                                                                 --separator=":" --width=500 --height=500)
+                                                FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                    FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+                                                        FALSE "clonar" "Clonar repositórios"\
+                                                            --separator=":" --width=500 --height=500)
 # Configurando seu ambiente
 
-echo " Atualizando sua máquina... "
-sleep 1
-sudo apt update && sudo apt -y upgrade
+downtime=300
+SECONDS=0
+
+update=$(sudo apt update | tee >(zenity --progress \
+                        --title "Agilize it" \
+                        --text "Recarregando pacotes..." \
+                        --ok-label "OK" \
+                        --cancel-label "Cancelar" \
+                        --pulsate \
+                        --auto-close) &> /dev/null)
+if [[ SECONDS < downtime ]]; then
+    zenity --error --title "Agilize it" --text "O recarregamento de pacotes demorou muito pra finalizar (Tempo: $SECONDS). Confira suas sources e tente novamente."
+    fi
+
+sudo apt "-y" upgrade | tee >(zenity --progress \
+                        --title "Agilize it" \
+                        --text "Verificando atualizações..." \
+                        --ok-label "OK" \
+                        --cancel-label "Cancelar" \
+                        --pulsate \
+                        --auto-close) &> /dev/null
 clear
 
 if [[ $menu =~ "git" ]]; then
-    echo " Instalando o Git e o Git Flow "
-    sleep 2
-    sudo apt install -y git && sudo apt install -y git-flow
+    git=$(sudo apt install "-y" git | tee >(zenity --progress \
+                        --title "Agilize it" \
+                        --text "Instalando Git" \
+                        --ok-label "OK" \
+                        --cancel-label "Cancelar" \
+                        --pulsate \
+                        --auto-close || zenity --error --title "Agilize it" --text "Debug: $git")) &> /dev/null
+    gitflow=$(sudo apt install "-y" git-flow | tee >(zenity --progress \
+                        --title "Agilize it" \
+                        --text "Instalando Git Flow" \
+                        --ok-label "OK" \
+                        --cancel-label "Cancelar" \
+                        --pulsate \
+                        --auto-close || zenity --error --title "Agilize it" --text "Debug: $gitflow")) &> /dev/null
     fi
 
 if [[ $menu =~ "docker" ]]; then
@@ -123,17 +151,6 @@ if [[ $menu =~ "eclipse" ]]; then
     tar -xvf eclipse.tar.gz
     cd eclipse
     ./eclipse
-    fi
-
-if [[ $menu =~ "jetbrains" ]]; then
-    echo "Baixando e Instalando o Jetbrains Toolbox (pra você escolher qual IDE da JetBrains você quer)"
-    sleep 2
-    wget -O $HOME/Downloads/toolbox "http://192.168.0.39/toolbox"
-    chmod +x $HOME/Downloads/toolbox
-    echo "Iniciando Toolbox..."
-    sleep 2
-    cd $HOME/Downloads
-    ./toolbox
     fi
 
 if [[ $menu =~ "remote" ]]; then
