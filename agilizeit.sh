@@ -35,6 +35,7 @@ update=$(sudo apt update | tee >(zenity --progress \
                         --cancel-label "Cancelar" \
                         --pulsate \
                         --auto-close) &> /dev/null)
+
 if [[ SECONDS < downtime ]]; then
     zenity --error --title "Agilize it" --text "O recarregamento de pacotes demorou muito pra finalizar (Tempo: $SECONDS). Confira suas sources e tente novamente."
     fi
@@ -118,7 +119,7 @@ if [[ $menu =~ "chrome" ]]; then
     sleep 2
 
     wget -O $HOME/Downloads/chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-    dpkg -i $HOME/Downloads/chrome.deb
+    sudo dpkg -i $HOME/Downloads/chrome.deb
     fi
 
 if [[ $menu =~ "slack" ]]; then
@@ -126,7 +127,7 @@ if [[ $menu =~ "slack" ]]; then
     sleep 2
 
     wget -O $HOME/Downloads/slack.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-2.4.2-amd64.deb"
-    dpkg -i $HOME/Downloads/slack.deb
+    sudo dpkg -i $HOME/Downloads/slack.deb
     fi
 
 if [[ $menu =~ "vscode" ]]; then
@@ -134,7 +135,7 @@ if [[ $menu =~ "vscode" ]]; then
     sleep 2
 
     wget -O $HOME/Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
-    dpkg -i $HOME/Downloads/code.deb
+    sudo dpkg -i $HOME/Downloads/code.deb
     fi
 
 if [[ $menu =~ "spotify" ]]; then
