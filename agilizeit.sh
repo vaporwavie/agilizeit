@@ -9,7 +9,7 @@
 # Tela principal
 
 menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Fechar"\
-        FALSE "gitwithflow" "Instalar o Git + Git Flow"\
+        FALSE "git" "Instalar o Git + Git Flow"\
             FALSE "docker" "Instalar o Docker + Compose"\
                 FALSE "apache5" "Instalar o Apache + PHP5"\
                     FALSE "javen" "Instalar o Java + Maven"\
@@ -27,20 +27,22 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
 
 sudo apt update
 
-sudo apt "-y" upgrade
+sudo apt -y upgrade
 
 clear
 
-echo "Instalando o Git e o Git flow..."
-sleep 1
-sudo apt install "-y" git-flow
-
+if [[ $menu =~ "git" ]]; then
+    echo "Instalando o Git e o Git flow..."
+    sleep 1
+    sudo apt install -y git-flow
+    fi
 
 if [[ $menu =~ "docker" ]]; then
     zenity --info --title "Docker" --text "O docker será instalado pelo seu script dedicado. \n Espere e vá fazer seu café!" 2> /dev/null
     sleep 1
     ./docker.sh
     zenity --info --title "Docker" --text "Done! Agora o compose" 2> /dev/null
+    sudo apt install -y curl
     curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
     vercompose=$(docker-compose --version)
@@ -81,23 +83,23 @@ if [[ $menu =~ "javen" ]]; then
 if [[ $menu =~ "exterminador" ]]; then
     echo " Instalando o Terminator... (Rlx, não é aquele do Exterminador do Futuro)"
     sleep 3
-    sudo apt install terminator
+    sudo apt install -y terminator
     fi
 
 if [[ $menu =~ "chrome" ]]; then
     echo " Baixando e Instalando o Chrome "
     sleep 2
-
     wget -O $HOME/Downloads/chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
     sudo dpkg -i $HOME/Downloads/chrome.deb
+    sudo apt-get -f -y install
     fi
 
 if [[ $menu =~ "slack" ]]; then
     echo " Baixando e Instalando o Slack... "
     sleep 2
-
     wget -O $HOME/Downloads/slack.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-2.4.2-amd64.deb"
     sudo dpkg -i $HOME/Downloads/slack.deb
+    sudo apt-get -f -y install
     fi
 
 if [[ $menu =~ "vscode" ]]; then
@@ -106,6 +108,7 @@ if [[ $menu =~ "vscode" ]]; then
 
     wget -O $HOME/Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
     sudo dpkg -i $HOME/Downloads/code.deb
+    sudo apt-get -f -y install
     fi
 
 if [[ $menu =~ "spotify" ]]; then
