@@ -1,4 +1,4 @@
-# Agilize it!
+# Agilize it! (BETA GUI version)
 For outsiders: Hey! This repository is purely intended to my buds at Agilize. My main achievement doing this script was just to automatize the whole environment installation proccess that we always pass when a system reinstalation is needed or something. 
 
 # Updates
