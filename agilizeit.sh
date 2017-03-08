@@ -23,6 +23,16 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                                     FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
                                                         FALSE "clonar" "Clonar repositórios"\
                                                             --separator=":" --width=500 --height=500)
+
+# Configurações internas necessárias
+
+sudo apt install -y build-essential
+
+sudo apt install -y curl
+
+sudo apt -f -y install
+
+
 # Configurando seu ambiente
 
 sudo apt update
