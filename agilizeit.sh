@@ -25,46 +25,16 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                                             --separator=":" --width=500 --height=500)
 # Configurando seu ambiente
 
-downtime=300
-SECONDS=0
+sudo apt update
 
-update=$(sudo apt update | tee >(zenity --progress \
-                        --title "Agilize it" \
-                        --text "Recarregando pacotes..." \
-                        --ok-label "OK" \
-                        --cancel-label "Cancelar" \
-                        --pulsate \
-                        --auto-close) &> /dev/null)
+sudo apt "-y" upgrade
 
-if [[ SECONDS < downtime ]]; then
-    zenity --error --title "Agilize it" --text "O recarregamento de pacotes demorou muito pra finalizar (Tempo: $SECONDS). Confira suas sources e tente novamente."
-    fi
-
-sudo apt "-y" upgrade | tee >(zenity --progress \
-                        --title "Agilize it" \
-                        --text "Verificando atualizações..." \
-                        --ok-label "OK" \
-                        --cancel-label "Cancelar" \
-                        --pulsate \
-                        --auto-close) &> /dev/null
 clear
 
-if [[ $menu =~ "git" ]]; then
-    git=$(sudo apt install "-y" git | tee >(zenity --progress \
-                        --title "Agilize it" \
-                        --text "Instalando Git" \
-                        --ok-label "OK" \
-                        --cancel-label "Cancelar" \
-                        --pulsate \
-                        --auto-close || zenity --error --title "Agilize it" --text "Debug: $git")) &> /dev/null
-    gitflow=$(sudo apt install "-y" git-flow | tee >(zenity --progress \
-                        --title "Agilize it" \
-                        --text "Instalando Git Flow" \
-                        --ok-label "OK" \
-                        --cancel-label "Cancelar" \
-                        --pulsate \
-                        --auto-close || zenity --error --title "Agilize it" --text "Debug: $gitflow")) &> /dev/null
-    fi
+echo "Instalando o Git e o Git flow..."
+sleep 1
+sudo apt install "-y" git-flow
+
 
 if [[ $menu =~ "docker" ]]; then
     zenity --info --title "Docker" --text "O docker será instalado pelo seu script dedicado. \n Espere e vá fazer seu café!" 2> /dev/null
