@@ -19,19 +19,29 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                     FALSE "vscode" "Instalar o Visual Studio Code"\
                                         FALSE "spotify" "Instalar o Spotify"\
                                             FALSE "eclipse" "Instalar o Eclipse"\
-                                                FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                    FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
-                                                        FALSE "clonar" "Clonar repositórios"\
-                                                            --separator=":" --width=500 --height=500)
+                                                FALSE "phpstorm" "Instalar o PHPStorm + Licença (agilibrains)"\
+                                                    FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                        FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+                                                            FALSE "clonar" "Clonar repositórios"\
+                                                                --separator=":" --width=500 --height=500)
 
-# Configurações internas necessárias
+# Double-check
 
-sudo apt install -y build-essential
-
-sudo apt install -y curl
-
-sudo apt -f -y install
-
+(
+echo "10" ; sleep 1
+sudo apt install -y build-essential ; sleep 1
+echo "30" ; sleep 1
+sudo apt install -y curl ; sleep 1
+echo "75" ; sleep 1
+sudo apt -f -y install ; sleep 1
+echo "100" ; sleep 1
+) |
+zenity --progress \
+  --title="Etapa de verificação" \
+  --text="Por favor, aguarde..." \
+  --cancel-label="Cancelar" \
+  --percentage=0 \
+  --auto-close
 
 # Configurando seu ambiente
 
@@ -48,13 +58,13 @@ if [[ $menu =~ "git" ]]; then
     fi
 
 if [[ $menu =~ "docker" ]]; then
-    zenity --info --title "Docker" --text "O docker será instalado pelo seu script dedicado. \n Espere e vá fazer seu café!" 2> /dev/null
+    zenity --info --title "Docker" --text "O docker será instalado pelo seu script dedicado. \n Enquanto espera, prepare um café pra você ;)" 2> /dev/null
     sleep 1
-    ./docker.sh
+     ./docker.sh
     zenity --info --title "Docker" --text "Done! Agora o compose" 2> /dev/null
     sudo apt install -y curl
-    curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
     vercompose=$(docker-compose --version)
     echo $vercompose
     if [[ $vercompose = false ]]; then
@@ -132,9 +142,23 @@ if [[ $menu =~ "spotify" ]]; then
 
 if [[ $menu =~ "eclipse" ]]; then
     wget -O $HOME/Downloads/eclipse.tar.gz "http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz"
-    tar -xvf eclipse.tar.gz
-    cd eclipse
+    mkdir $HOME/Downloads/eclipse/ && tar -xf $HOME/Downloads/eclipse.tar.gz -C $HOME/Downloads/eclipse
+    cd $HOME/Downloads/eclipse/
+    chmod +x eclipse
     ./eclipse
+    fi
+
+if [[ $menu =~ "phpstorm" ]]; then
+    wget -O $HOME/Downloads/phpstorm.tar.gz "https://data.services.jetbrains.com/products/download?code=PS&platform=linux"
+    mkdir $HOME/Downloads/phpstorm/ && tar -xf $HOME/Downloads/phpstorm.tar.gz -C $HOME/Downloads/phpstorm
+    cd $HOME/Downloads/phpstorm/PhpStorm-163.13906.21/bin/
+    chmod +x phpstorm.sh
+    ./phpstorm.sh
+    wget -O chave.key "http://us.idea.lanyus.com/getkey?userName=agilibrains"
+    zenity --text-info \
+       --title="Licença" \
+       --filename=chave.key \
+       --checkbox="Sim, eu sei que isso é pirataria"
     fi
 
 if [[ $menu =~ "remote" ]]; then
