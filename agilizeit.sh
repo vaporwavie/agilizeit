@@ -5,6 +5,8 @@
 # Enjoy!
 #
 # luizaugustonickel at gmail dot com
+exec > >(tee -i log.txt)
+exec 2>&1
 
 # Tela principal
 
@@ -23,18 +25,18 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                                     FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
                                                         FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
                                                             FALSE "clonar" "Clonar repositórios"\
-                                                                --separator=":" --width=550 --height=550)
+                                                                --separator=":" --width=600 --height=550) 2> /dev/null
 
 # Double-check
 
 if [[ $menu ]]; then
 (
 echo "20" ; sleep 1
-sudo apt install -y build-essential ;
+echo "Verificando: build-essential OK" ; sudo apt install -y build-essential ;
 echo "40" ; sleep 1
-sudo apt install -y curl ;
+echo "Verificando: cURL OK" ; sudo apt install -y curl ;
 echo "80" ; sleep 1
-sudo apt -f -y install ;
+echo "Verificando: fix em pacotes quebrados (caso existam) OK" ; sudo apt -f -y install ;
 echo "100" ; sleep 1
 ) |
 zenity --progress \
@@ -42,7 +44,7 @@ zenity --progress \
   --text="Por favor, aguarde..." \
   --cancel-label="Fechar" \
   --percentage=10 \
-  --auto-close
+  --auto-close 2> /dev/null
 
 # Configurando seu ambiente
 
@@ -50,7 +52,6 @@ sudo apt update
 
 sudo apt -y upgrade
 
-clear
     fi
 
 if [[ $menu =~ "git" ]]; then
@@ -70,7 +71,7 @@ if [[ $menu =~ "docker" ]]; then
     vercompose=$(docker-compose --version)
     echo $vercompose
     if [[ $vercompose = false ]]; then
-        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nDebug pra encher o saco de @vaporwavie: $vercompose"
+        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nDebug pra encher o saco de @vaporwavie: $vercompose" 2> /dev/null
     fi
     if [[ $vercompose ]]; then
         zenity --info --title "Aviso - Docker Compose" --text "O docker compose parece estar funcionando sem problemas.\nDebug: $vercompose" 2> /dev/null
@@ -160,7 +161,7 @@ if [[ $menu =~ "phpstorm" ]]; then
     zenity --text-info \
        --title="Licença" \
        --filename=chave.key \
-       --checkbox="Sim, eu sei que isso é pirataria"
+       --checkbox="Sim, eu sei que isso é pirataria" 2> /dev/null
     fi
 
 if [[ $menu =~ "remote" ]]; then
@@ -192,7 +193,7 @@ if [[ $menu =~ "clonar" ]]; then
                 FALSE "operador" "Clonar o web app do operador"\
                     FALSE "cliente" "Clonar o web app do cliente"\
                         FALSE "mobile" "Clonar o app mobile"\
-                        --separator=":" --width=400 --height=300)
+                        --separator=":" --width=400 --height=300) 2> /dev/null
     fi
 
 if [[ $clonemenu ]]; then
@@ -203,9 +204,9 @@ if [[ $clonemenu ]]; then
     zenity --info --title "Aviso - Clonar Repositórios" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email" 2> /dev/null
     fi
     if [[ $verifica = false ]]; then
-    gitname=$(zenity --entry --title "Git - Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100)
+    gitname=$(zenity --entry --title "Git - Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100) 2> /dev/null
     git config --global user.name $gitname
-    gitemail=$(zenity --entry --title "Git - Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100)
+    gitemail=$(zenity --entry --title "Git - Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100) 2> /dev/null
     git config --global user.email $gitemail
     echo $gitemail
     fi
