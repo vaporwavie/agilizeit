@@ -12,18 +12,18 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 * Extraia o arquivo <code>agilizeit.tar.gz</code>
 * Pelo terminal, navegue para a pasta que fora extraída (provavelmente "agilizeit")
 * Dê um <code>chmod +x</code> em <code>agilizeit.sh</code> para garantir as permissões de execução corretamente.
-* Utilize usando <code>./agilizeit</code>
+* Utilize como <code>./agilizeit</code>
 
 # TODO
 
-De acordo com os reports feitos por @Calison25, **existem algumas coisas a serem implementadas e corrigidas.**
+De acordo com os reports feitos por @Calison25, **existem algumas coisas que podem ser implementadas**
 
 ### Melhorias
-* Os diretórios em que os repositórios serão armazenados podem ser escolhidos pelo usuário
+* Optar pelo usuário escolher onde irá salvar os repositórios.
 * Possibilidade de escolher qual editor será usado para lidar com o git
-* PHP Composer + symlink 
+* PHP Composer + symlink
 * NPM + Nodejs
-* Add SQL Dumping
+* Dump do SQL
 
-# Algo mais?
-Aproveitem! :D
+# License
+[LICENSE]
