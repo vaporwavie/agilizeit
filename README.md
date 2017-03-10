@@ -12,7 +12,7 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 * Extraia o arquivo <code>agilizeit.tar.gz</code>
 * Pelo terminal, navegue para a pasta que fora extraída (provavelmente "agilizeit")
 * Dê um <code>chmod +x</code> em <code>agilizeit.sh</code> para garantir as permissões de execução corretamente.
-* Use!
+* Utilize usando <code>./agilizeit</code>
 
 # TODO
 
