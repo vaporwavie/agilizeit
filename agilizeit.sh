@@ -29,19 +29,19 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
 
 if [[ $menu ]]; then
 (
-echo "10" ; sleep 1
-sudo apt install -y build-essential ; sleep 1
-echo "30" ; sleep 1
-sudo apt install -y curl ; sleep 1
-echo "75" ; sleep 1
-sudo apt -f -y install ; sleep 1
+echo "20" ; sleep 1
+sudo apt install -y build-essential ;
+echo "40" ; sleep 1
+sudo apt install -y curl ;
+echo "80" ; sleep 1
+sudo apt -f -y install ;
 echo "100" ; sleep 1
 ) |
 zenity --progress \
   --title="Etapa de verificação" \
   --text="Por favor, aguarde..." \
   --cancel-label="Fechar" \
-  --percentage=0 \
+  --percentage=10 \
   --auto-close
 
 # Configurando seu ambiente
