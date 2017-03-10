@@ -26,4 +26,4 @@ De acordo com os reports feitos por @Calison25, **existem algumas coisas que pod
 * Dump do SQL
 
 # License
-[LICENSE]
+[LICENSE](LICENSE)
