@@ -8,7 +8,7 @@
 
 # Tela principal
 
-menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Fechar"\
+menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
         FALSE "git" "Instalar o Git + Git Flow"\
             FALSE "docker" "Instalar o Docker + Compose"\
                 FALSE "apache5" "Instalar o Apache + PHP5"\
@@ -23,10 +23,11 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                                     FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
                                                         FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
                                                             FALSE "clonar" "Clonar repositórios"\
-                                                                --separator=":" --width=500 --height=500)
+                                                                --separator=":" --width=550 --height=550)
 
 # Double-check
 
+if [[ $menu ]]; then
 (
 echo "10" ; sleep 1
 sudo apt install -y build-essential ; sleep 1
@@ -39,7 +40,7 @@ echo "100" ; sleep 1
 zenity --progress \
   --title="Etapa de verificação" \
   --text="Por favor, aguarde..." \
-  --cancel-label="Cancelar" \
+  --cancel-label="Fechar" \
   --percentage=0 \
   --auto-close
 
@@ -50,6 +51,7 @@ sudo apt update
 sudo apt -y upgrade
 
 clear
+    fi
 
 if [[ $menu =~ "git" ]]; then
     echo "Instalando o Git e o Git flow..."
@@ -236,4 +238,4 @@ if [[ $clonemenu =~ "mobile" ]]; then
     fi
     fi
 
-zenity --info --title "Agilize it - Finalizado" --text "Reporte bugs e xingue Vaporwavie em github.com/vaporwavie/agilizeit" 2> /dev/null
+zenity --info --title "Agilize it - Finalizado" --text "<big>Script finalizado!</big>\nOs pacotes selecionados foram instalados com sucesso. Consulte log.txt para mais informações." --width=300 --height=200 2> /dev/null
