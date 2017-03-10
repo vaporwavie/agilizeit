@@ -19,12 +19,13 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                             FALSE "slack" "Instalar o Slack"\
                                 FALSE "chrome" "Instalar o Chrome"\
                                     FALSE "vscode" "Instalar o Visual Studio Code"\
-                                        FALSE "spotify" "Instalar o Spotify"\
-                                            FALSE "eclipse" "Instalar o Eclipse"\
-                                                FALSE "phpstorm" "Instalar o PHPStorm + Licença (agilibrains)"\
-                                                    FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                        FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
-                                                            FALSE "clonar" "Clonar repositórios"\
+                                        FALSE "sublime" "Instalar o Sublime Text"\
+                                            FALSE "spotify" "Instalar o Spotify"\
+                                                FALSE "eclipse" "Instalar o Eclipse"\
+                                                    FALSE "phpstorm" "Instalar o PHPStorm + Licença (agilibrains)"\
+                                                        FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                            FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+                                                                FALSE "clonar" "Clonar repositórios"\
                                                                 --separator=":" --width=600 --height=550) 2> /dev/null
 
 # Double-check
@@ -32,11 +33,11 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
 if [[ $menu ]]; then
 (
 echo "20" ; sleep 1
-echo "Verificando: build-essential OK" ; sudo apt install -y build-essential ;
+sudo apt install -y build-essential ;
 echo "40" ; sleep 1
-echo "Verificando: cURL OK" ; sudo apt install -y curl ;
+sudo apt install -y curl ;
 echo "80" ; sleep 1
-echo "Verificando: fix em pacotes quebrados (caso existam) OK" ; sudo apt -f -y install ;
+sudo apt -f -y install ;
 echo "100" ; sleep 1
 ) |
 zenity --progress \
@@ -51,6 +52,8 @@ zenity --progress \
 sudo apt update
 
 sudo apt -y upgrade
+
+clear
 
     fi
 
@@ -132,6 +135,14 @@ if [[ $menu =~ "vscode" ]]; then
     wget -O $HOME/Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
     sudo dpkg -i $HOME/Downloads/code.deb
     sudo apt-get -f -y install
+    fi
+
+if [[ $menu =~ "sublime" ]]; then
+    echo "Baixando e Instalando o Sublime Text..."
+    sleep 2
+
+    wget -O $HOME/Downloads/sublime.deb "https://download.sublimetext.com/sublime-text_build-3126_amd64.deb"
+    sudo dpkg -i $HOME/Downloads/sublime.deb
     fi
 
 if [[ $menu =~ "spotify" ]]; then

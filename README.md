@@ -19,9 +19,8 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 De acordo com os reports feitos por @Calison25, **existem algumas coisas a serem implementadas e corrigidas.**
 
 ### Melhorias
-* Os diretórios em que os repositórios serão armazenados pode ser escolhido pelo usuário
+* Os diretórios em que os repositórios serão armazenados podem ser escolhidos pelo usuário
 * Possibilidade de escolher qual editor será usado para lidar com o git
-* Sublime Text
 * PHP Composer + symlink 
 * NPM + Nodejs
 * Add SQL Dumping
