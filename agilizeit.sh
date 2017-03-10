@@ -170,7 +170,7 @@ if [[ $menu =~ "phpstorm" ]]; then
     ./phpstorm.sh
     wget -O chave.key "http://us.idea.lanyus.com/getkey?userName=agilibrains"
     zenity --text-info \
-       --title="Licença" \
+       --title="Licença PHPStorm" \
        --filename=chave.key \
        --checkbox="Sim, eu sei que isso é pirataria" 2> /dev/null
     fi
