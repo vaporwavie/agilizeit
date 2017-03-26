@@ -22,7 +22,6 @@ De acordo com os reports feitos por @Calison25, **existem algumas coisas que pod
 * Optar pelo usuário escolher onde irá salvar os repositórios.
 * Possibilidade de escolher qual editor será usado para lidar com o git
 * PHP Composer + symlink
-* NPM + Nodejs
 * Dump do SQL
 
 # License
