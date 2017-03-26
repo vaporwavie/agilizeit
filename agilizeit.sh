@@ -5,6 +5,7 @@
 # Enjoy!
 #
 # luizaugustonickel at gmail dot com
+
 exec > >(tee -i log.txt)
 exec 2>&1
 
@@ -22,11 +23,12 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                         FALSE "sublime" "Instalar o Sublime Text"\
                                             FALSE "spotify" "Instalar o Spotify"\
                                                 FALSE "eclipse" "Instalar o Eclipse"\
-                                                    FALSE "phpstorm" "Instalar o PHPStorm + Licença (agilibrains)"\
-                                                        FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                            FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
-                                                                FALSE "clonar" "Clonar repositórios"\
-                                                                --separator=":" --width=600 --height=550) 2> /dev/null
+                                                    FALSE "npm" "Instalar o Node + NPM"\
+                                                        FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
+                                                            FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                                FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+                                                                    FALSE "clonar" "Clonar repositórios"\
+                                                                    --separator=":" --width=600 --height=550) 2> /dev/null
 
 # Double-check
 
@@ -161,6 +163,22 @@ if [[ $menu =~ "eclipse" ]]; then
     chmod +x eclipse
     ./eclipse
     fi
+
+if [[ $menu =~ "npm" ]]; then
+    echo "Instalando o Nodejs"
+    curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+    sudo apt update
+    sudo apt-get install -y nodejs
+    node -v
+    if [[ "node -v" == "7.6.0" ]]; then
+        echo "Nodejs instalado na versão 7.6.0"
+    fi
+    echo "Instalando o NPM"
+    npm install npm@latest -g
+    if [[ "npm -v" ]]; then
+        echo "NPM instalado e atualizado!"
+    fi
+fi
 
 if [[ $menu =~ "phpstorm" ]]; then
     wget -O $HOME/Downloads/phpstorm.tar.gz "https://data.services.jetbrains.com/products/download?code=PS&platform=linux"
