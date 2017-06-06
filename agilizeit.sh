@@ -20,14 +20,15 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                             FALSE "slack" "Instalar o Slack"\
                                 FALSE "chrome" "Instalar o Chrome"\
                                     FALSE "vscode" "Instalar o Visual Studio Code"\
-                                        FALSE "sublime" "Instalar o Sublime Text"\
-                                            FALSE "spotify" "Instalar o Spotify"\
-                                                FALSE "eclipse" "Instalar o Eclipse"\
-                                                    FALSE "npm" "Instalar o Node + NPM"\
-                                                        FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
-                                                            FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                                FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
-                                                                    FALSE "clonar" "Clonar repositórios"\
+                                      FALSE "vim" "Instalar o Vim + mod (vim bootstrap)"\
+                                          FALSE "sublime" "Instalar o Sublime Text"\
+                                              FALSE "spotify" "Instalar o Spotify"\
+                                                  FALSE "eclipse" "Instalar o Eclipse"\
+                                                      FALSE "npm" "Instalar o Node + NPM"\
+                                                          FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
+                                                              FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                                  FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+                                                                      FALSE "clonar" "Clonar repositórios"\
                                                                     --separator=":" --width=600 --height=550) 2> /dev/null
 
 # Double-check
@@ -138,6 +139,14 @@ if [[ $menu =~ "vscode" ]]; then
     sudo dpkg -i $HOME/Downloads/code.deb
     sudo apt-get -f -y install
     fi
+
+if [[ $menu =~ "vim" ]]; then
+  echo "Instalando o vim..."
+  sudo apt install -y vim
+  echo "Done! Adicionando mods pro vim..."
+  mv generate.vim ~/.vimrc
+  echo "Pronto! Para executar o vim e confirmar os mods, basta digitar 'vim' no terminal."
+fi
 
 if [[ $menu =~ "sublime" ]]; then
     echo "Baixando e Instalando o Sublime Text..."
