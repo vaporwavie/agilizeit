@@ -20,14 +20,15 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                             FALSE "slack" "Instalar o Slack"\
                                 FALSE "chrome" "Instalar o Chrome"\
                                     FALSE "vscode" "Instalar o Visual Studio Code"\
-                                        FALSE "sublime" "Instalar o Sublime Text"\
-                                            FALSE "spotify" "Instalar o Spotify"\
-                                                FALSE "eclipse" "Instalar o Eclipse"\
-                                                    FALSE "npm" "Instalar o Node + NPM"\
-                                                        FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
-                                                            FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                                FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
-                                                                    FALSE "clonar" "Clonar repositórios"\
+                                      FALSE "vim" "Instalar o Vim + mod (vim bootstrap)"\
+                                          FALSE "sublime" "Instalar o Sublime Text"\
+                                              FALSE "spotify" "Instalar o Spotify"\
+                                                  FALSE "eclipse" "Instalar o Eclipse"\
+                                                      FALSE "npm" "Instalar o Node + NPM"\
+                                                          FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
+                                                              FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                                  FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+                                                                      FALSE "clonar" "Clonar repositórios"\
                                                                     --separator=":" --width=600 --height=550) 2> /dev/null
 
 # Double-check
@@ -35,10 +36,13 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
 if [[ $menu ]]; then
 (
 echo "20" ; sleep 1
+echo "Verificando build-essential"
 sudo apt install -y build-essential ;
 echo "40" ; sleep 1
+echo "Verificando curl"
 sudo apt install -y curl ;
 echo "80" ; sleep 1
+echo "Verificando pacotes quebrados"
 sudo apt -f -y install ;
 echo "100" ; sleep 1
 ) |
@@ -53,7 +57,7 @@ zenity --progress \
 
 sudo apt update
 
-sudo apt -y upgrade
+# sudo apt -y upgrade
 
 clear
 
@@ -66,17 +70,33 @@ if [[ $menu =~ "git" ]]; then
     fi
 
 if [[ $menu =~ "docker" ]]; then
-    zenity --info --title "Docker" --text "O docker será instalado pelo seu script dedicado. \n Enquanto espera, prepare um café pra você ;)" 2> /dev/null
+    echo "Configurando repositório e permissões do Docker..."
     sleep 1
-     ./docker.sh
-    zenity --info --title "Docker" --text "Done! Agora o compose" 2> /dev/null
+    sudo apt-get -y install \
+    apt-transport-https \
+    ca-certificates \
+    curl
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+    sudo apt update && sudo apt install -y docker-ce
+    sudo groupadd docker
+    sudo gpasswd -a $USER docker
+    newgrp docker
+    docker run hello-world
+    sleep 2
+    clear
+    echo "Done! Configurando o docker-compose com permissões"
     sudo apt install -y curl
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.10.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
+    LATEST=$(1.14.0-rc2) # Atualizar isso a cada update pertinente do compose
+    curl -L https://github.com/docker/compose/releases/download/$LATEST/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
     vercompose=$(docker-compose --version)
     echo $vercompose
     if [[ $vercompose = false ]]; then
-        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nDebug pra encher o saco de @vaporwavie: $vercompose" 2> /dev/null
+        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nDebug: $vercompose" 2> /dev/null
     fi
     if [[ $vercompose ]]; then
         zenity --info --title "Aviso - Docker Compose" --text "O docker compose parece estar funcionando sem problemas.\nDebug: $vercompose" 2> /dev/null
@@ -138,6 +158,14 @@ if [[ $menu =~ "vscode" ]]; then
     sudo dpkg -i $HOME/Downloads/code.deb
     sudo apt-get -f -y install
     fi
+
+if [[ $menu =~ "vim" ]]; then
+  echo "Instalando o vim..."
+  sudo apt install -y vim
+  echo "Done! Adicionando mods pro vim..."
+  mv generate.vim ~/.vimrc
+  echo "Pronto! Para executar o vim e confirmar os mods, basta digitar 'vim' no terminal."
+fi
 
 if [[ $menu =~ "sublime" ]]; then
     echo "Baixando e Instalando o Sublime Text..."
