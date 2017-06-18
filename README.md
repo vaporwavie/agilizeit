@@ -11,7 +11,7 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 * Encontre e baixe o último release [aqui](https://github.com/vaporwavie/agilizeit.sh/releases)
 * Extraia o arquivo <code>agilizeit.tar.gz</code> (ou <code>agilizeit.sh.tar.gz</code>)
 * Pelo terminal, navegue para a pasta que fora extraída (provavelmente "agilizeit.sh")
-* Utilize como <code>./agilizeit</code>
+* Utilize como <code>./agilizeit.sh</code>
 
 # TODO
 
