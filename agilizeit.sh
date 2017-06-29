@@ -55,9 +55,13 @@ zenity --progress \
 
 # Configurando seu ambiente
 
-sudo apt update
+echo "Atualizando os repositórios..."
+sudo apt --quiet --yes update
+echo "Concluído!"
 
-sudo apt -y upgrade
+echo "Atualizando pacotes..."
+sudo apt --quiet --yes  upgrade
+echo "Concluído!"
 
 clear
 
