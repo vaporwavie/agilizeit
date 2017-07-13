@@ -1,9 +1,6 @@
 # Agilize it!
 For outsiders: Hey! This repository is purely intended to my buds at Agilize. My main achievement doing this script was just to automatize the whole environment installation proccess that we always pass when a system reinstalation is needed or something.
 
-# Updates
-O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacotes básicos já estão devidamente configurados :)
-
 # Demonstração
 ![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/demo.png)
 
@@ -18,6 +15,9 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 ### Usando wget
 
 <code>wget -qO- https://raw.githubusercontent.com/vaporwavie/agilizeit.sh/master/install.sh | bash</code>
+
+# Como atualizo o script?
+Depois da instalação, é possível verificar atualizações digitando <code>$agzitupdate</code> no terminal.
 
 # License
 [LICENSE](LICENSE)
