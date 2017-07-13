@@ -9,20 +9,15 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 
 # Como executar
 
-### Usando o arquivo zip
-
-- Você pode encontrar as releases do projeto [aqui](https://github.com/vaporwavie/agilizeit.sh/releases)
-- Extraia o arquivo <code>agilizeit.sh.tar.gz</code>
-- Pelo terminal, navegue para a pasta que fora extraída (provavelmente "agilizeit.sh")
-- Utilize como <code>./agilizeit.sh</code>
-
 ### Usando cURL
 
 É mais simples (e efetivo) instalar o script usando  o cURL. Simplesmente digite no terminal:
 
-<code>curl -o- https://raw.githubusercontent.com/vaporwavie/agilizeit.sh/master/agilizeit.sh | bash</code>
+<code>curl -o- https://raw.githubusercontent.com/vaporwavie/agilizeit.sh/master/install.sh | bash</code>
 
-**PS**: Usando o método via cURL permite que você rode o script como arquivo temporário.
+### Usando wget
+
+<code>wget -qO- https://raw.githubusercontent.com/vaporwavie/agilizeit.sh/master/install.sh | bash</code>
 
 # TODO
 

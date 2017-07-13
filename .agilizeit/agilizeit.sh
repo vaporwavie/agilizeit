@@ -9,13 +9,6 @@
 exec > >(tee -i log.txt)
 exec 2>&1
 
-# Configurando script pro sistema
-echo "git clone repo"
-echo "export vars pro rc"
-echo "source no rc"
-echo "update todo"
-echo "rodar script"
-
 menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
         FALSE "git" "Instalar o Git + Git Flow"\
             FALSE "docker" "Instalar o Docker + Compose"\
@@ -35,6 +28,7 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                                                   FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
                                                                       FALSE "clonar" "Clonar repositórios"\
                                                                     --separator=":" --width=600 --height=550) 2> /dev/null
+
 
 
 # Double-check
