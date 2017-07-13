@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script builds the whole Agilize environment.
+# This script allows you to build the Agilize dev environment.
 #
 # Enjoy!
 #
@@ -36,6 +36,7 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                                                       FALSE "clonar" "Clonar repositórios"\
                                                                     --separator=":" --width=600 --height=550) 2> /dev/null
 
+
 # Double-check
 
 if [[ $menu ]]; then
@@ -58,16 +59,12 @@ zenity --progress \
   --percentage=10 \
   --auto-close 2> /dev/null
 
-# Configurando seu ambiente
-
 echo "Atualizando os repositórios..."
 sudo apt --quiet --yes update
 echo "Concluído!"
-
 echo "Atualizando pacotes..."
 sudo apt --quiet --yes  upgrade
 echo "Concluído!"
-
 clear
 
     fi
@@ -95,7 +92,7 @@ if [[ $menu =~ "docker" ]]; then
     sudo gpasswd -a $USER docker
     newgrp docker
     docker run hello-world
-    sleep 2
+    sleep 1
     clear
     echo "Done! Configurando o docker-compose com permissões"
     sudo apt install -y curl
@@ -105,10 +102,10 @@ if [[ $menu =~ "docker" ]]; then
     vercompose=$(docker-compose --version)
     echo $vercompose
     if [[ $vercompose = false ]]; then
-        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nDebug: $vercompose" 2> /dev/null
+        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nRazão: $vercompose" 2> /dev/null
     fi
     if [[ $vercompose ]]; then
-        zenity --info --title "Aviso - Docker Compose" --text "O docker compose parece estar funcionando sem problemas.\nDebug: $vercompose" 2> /dev/null
+        zenity --info --title "Aviso - Docker Compose" --text "O docker compose parece estar funcionando sem problemas.\nRazão: $vercompose" 2> /dev/null
     fi
     fi
 
@@ -231,8 +228,8 @@ if [[ $menu =~ "phpstorm" ]]; then
     fi
 
 if [[ $menu =~ "remote" ]]; then
-    # Can't force install crx via terminal. Chrome Team blocked it.
-    echo "Abrindo a loja de extensões do Chrome... Bora lá!"
+    echo "O Chrome ainda não permite instalação de extensões via terminal"
+    echo "Abrindo loja de extensões da Google..."
     sleep 2
     python -mwebbrowser https://goo.gl/YFNOCF
     fi
@@ -240,15 +237,17 @@ if [[ $menu =~ "remote" ]]; then
 if [[ $menu =~ "ohmyzsh" ]]; then
     echo "Instalando o zsh + oh-my-zsh..."
     sleep 2
+    # Configurando o zsh    
     sudo apt install -y zsh
     config=$(zsh --version)
     if [[ $config ]]; then
     echo $config;
     fi
     if [[ $config = false ]]; then
-    echo "Algo de errado aconteceu na instalação do ZSH. Debug pra vaporwavie: $config"
+    echo "Algo de errado aconteceu na instalação do ZSH. Razão: $config"
     fi
     # Configurando o ohmyzsh
+    zenity --info --title "Agilize it - Aviso" --text "<big>Antes de instalar o zsh...</big>\nExecute o agilizeit.sh novamente para prosseguir com a instalação." --width=300 --height=200 2> /dev/null    
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     chsh -s $(which zsh)
     fi
@@ -265,7 +264,7 @@ if [[ $menu =~ "clonar" ]]; then
 if [[ $clonemenu ]]; then
     nome=$(git config --global user.name $gitname)
     email=$(git config --global user.email $gitemail)
-    verifica=$(echo $nome && echo $email)
+    verifica=$(echo $nome $email)
     if [[ $verifica ]]; then
     zenity --info --title "Aviso - Clonar Repositórios" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email" 2> /dev/null
     fi
@@ -274,35 +273,35 @@ if [[ $clonemenu ]]; then
     git config --global user.name $gitname
     gitemail=$(zenity --entry --title "Git - Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100) 2> /dev/null
     git config --global user.email $gitemail
-    echo $gitemail
     fi
 fi
 if [[ $clonemenu =~ "backend" ]]; then
-    cloning=$(git clone git@bitbucket.org:apimenti/agilize.git $HOME/agilize.clones/backend/ || zenity --error --title "Clonar backend" --text "Ocorreu um erro ao clonar o repositório do backend. Verifique se ele já foi clonado ou tente novamente.")
+    cloning=$(git clone git@bitbucket.org:apimenti/agilize.git $HOME/agilize-repos/backend/ || zenity --error --title "Clonar backend" --text "Ocorreu um erro ao clonar o repositório do backend. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
     zenity --info --title "Clonar repositórios - Backend" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
 if [[ $clonemenu =~ "operador" ]]; then
-    cloning=$(git clone git@bitbucket.org:apimenti/operador_webapp.git $HOME/agilize.clones/operador/ || zenity --error --title "Clonar operador" --text "Ocorreu um erro ao clonar o repositório do operador. Verifique se ele já foi clonado ou tente novamente.")
+    cloning=$(git clone git@bitbucket.org:apimenti/operador_webapp.git $HOME/agilize-repos/operador/ || zenity --error --title "Clonar operador" --text "Ocorreu um erro ao clonar o repositório do operador. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
     zenity --info --title "Clonar repositórios - Operador" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
 if [[ $clonemenu =~ "cliente" ]]; then
-    cloning=$(git clone git@bitbucket.org:apimenti/cliente_webapp.git $HOME/agilize.clones/cliente/ || zenity --error --title "Clonar cliente" --text "Ocorreu um erro ao clonar o repositório do cliente. Verifique se ele já foi clonado ou tente novamente.")
+    cloning=$(git clone git@bitbucket.org:apimenti/cliente_webapp.git $HOME/agilize-repos/cliente/ || zenity --error --title "Clonar cliente" --text "Ocorreu um erro ao clonar o repositório do cliente. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
     zenity --info --title "Clonar repositórios - Cliente" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
 if [[ $clonemenu =~ "mobile" ]]; then
-    cloning=$(git clone git@bitbucket.org:apimenti/agilize_mobile.git $HOME/agilize.clones/mobile/ || zenity --error --title "Clonar mobile" --text "Ocorreu um erro ao clonar o repositório do app mobile. Verifique se ele já foi clonado ou tente novamente.")
+    cloning=$(git clone git@bitbucket.org:apimenti/agilize_mobile.git $HOME/agilize-repos/mobile/ || zenity --error --title "Clonar mobile" --text "Ocorreu um erro ao clonar o repositório do app mobile. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
     zenity --info --title "Clonar repositórios - Mobile" --text "Repositório clonado com sucesso!" 2> /dev/null
     fi
     fi
 
+# @TODO implementar no log os arquivos instalados
 zenity --info --title "Agilize it - Finalizado" --text "<big>Script finalizado!</big>\nOs pacotes selecionados foram instalados com sucesso. Consulte log.txt para mais informações." --width=300 --height=200 2> /dev/null
