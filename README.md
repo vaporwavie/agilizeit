@@ -7,21 +7,26 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 # Demonstração
 ![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/agilizeit.png )
 
-# Como usar
-* Encontre e baixe o último release [aqui](https://github.com/vaporwavie/agilizeit.sh/releases)
-* Extraia o arquivo <code>agilizeit.tar.gz</code> (ou <code>agilizeit.sh.tar.gz</code>)
-* Pelo terminal, navegue para a pasta que fora extraída (provavelmente "agilizeit.sh")
-* Utilize como <code>./agilizeit.sh</code>
+# Como executar
+
+### Usando o arquivo zip
+
+- Você pode encontrar as releases do projeto [aqui](https://github.com/vaporwavie/agilizeit.sh/releases)
+- Extraia o arquivo <code>agilizeit.sh.tar.gz</code>
+- Pelo terminal, navegue para a pasta que fora extraída (provavelmente "agilizeit.sh")
+- Utilize como <code>./agilizeit.sh</code>
+
+### Usando cURL
+
+É mais simples (e efetivo) instalar o script usando  o cURL. Simplesmente digite no terminal:
+
+<code>curl -o- https://raw.githubusercontent.com/vaporwavie/agilizeit.sh/master/agilizeit.sh | bash</code>
+
+**PS**: Usando o método via cURL permite que você rode o script como arquivo temporário.
 
 # TODO
 
-De acordo com os reports feitos por @Calison25, **existem algumas coisas que podem ser implementadas**
-
-### Melhorias
-* Optar pelo usuário escolher onde irá salvar os repositórios.
-* Possibilidade de escolher qual editor será usado para lidar com o git
-* PHP Composer + symlink
-* Dump do SQL
+* Modularizar script.
 
 # License
 [LICENSE](LICENSE)
