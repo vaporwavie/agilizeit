@@ -7,7 +7,7 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 # Demonstração
 ![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/demo.png)
 
-# Como executar
+# Como instalar
 
 ### Usando cURL
 
