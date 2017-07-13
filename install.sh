@@ -5,6 +5,7 @@
 # luizaugustonickel at gmail dot com
 
 # Configurando script pro sistema
+# TODO
 git clone https://github.com/vaporwavie/agilizeit.sh.git ~/.agilizeit
 echo "alias agilizeit='~/.agilizeit/.agilizeit/agilizeit.sh'" >> ~/.zshrc
 echo "alias agilizeitupdate='cd ~/.agilizeit && git pull https://github.com/vaporwavie/agilizeit.sh.git'" >> ~/.zshrc
