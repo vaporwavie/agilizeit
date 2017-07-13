@@ -19,9 +19,5 @@ O script vai ser atualizado conforme a equipe relate bugs e melhorias. Os pacote
 
 <code>wget -qO- https://raw.githubusercontent.com/vaporwavie/agilizeit.sh/master/install.sh | bash</code>
 
-# TODO
-
-* Modularizar script.
-
 # License
 [LICENSE](LICENSE)
