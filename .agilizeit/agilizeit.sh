@@ -14,7 +14,7 @@ ERROR='\033[0;31m'
 SUCCESS='\033[0;32'
 WARNING='\033[0;33m'
 
-menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
+menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar.\n<b>Para atualizar script: agilizeit-update</b>" --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
         FALSE "gitflow" "Instalar o Git Flow"\
             FALSE "docker" "Instalar o Docker + Compose"\
                 FALSE "apache5" "Instalar o Apache + PHP5"\
