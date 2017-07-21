@@ -9,8 +9,12 @@
 exec > >(tee -i log.txt)
 exec 2>&1
 
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32'
+
 menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
-        FALSE "git" "Instalar o Git Flow"\
+        FALSE "gitflow" "Instalar o Git Flow"\
             FALSE "docker" "Instalar o Docker + Compose"\
                 FALSE "apache5" "Instalar o Apache + PHP5"\
                     FALSE "javen" "Instalar o Java + Maven"\
@@ -27,11 +31,8 @@ menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelec
                                                               FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
                                                                   FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
                                                                       FALSE "clonar" "Clonar repositórios"\
-                                                                    --separator=":" --width=600 --height=550) 2> /dev/null
-
-
-
-# Double-check
+                                                                    --separator=":" --width=600 --height=550
+)
 
 if [[ $menu ]]; then
 (
@@ -51,7 +52,7 @@ zenity --progress \
   --text="Por favor, aguarde..." \
   --cancel-label="Fechar" \
   --percentage=10 \
-  --auto-close 2> /dev/null
+  --auto-close
 
 echo "Atualizando os repositórios..."
 sudo apt --quiet --yes update
@@ -96,10 +97,10 @@ if [[ $menu =~ "docker" ]]; then
     vercompose=$(docker-compose --version)
     echo $vercompose
     if [[ $vercompose = false ]]; then
-        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nRazão: $vercompose" 2> /dev/null
+        zenity --error --title "Aviso - Docker Compose" --text "Ocorreu um erro ao instalar o docker-compose.\nRazão: $vercompose"
     fi
     if [[ $vercompose ]]; then
-        zenity --info --title "Aviso - Docker Compose" --text "O docker compose parece estar funcionando sem problemas.\nRazão: $vercompose" 2> /dev/null
+        zenity --info --title "Aviso - Docker Compose" --text "O docker compose parece estar funcionando sem problemas.\nRazão: $vercompose"
     fi
     fi
 
@@ -218,7 +219,7 @@ if [[ $menu =~ "phpstorm" ]]; then
     zenity --text-info \
        --title="Licença PHPStorm" \
        --filename=chave.key \
-       --checkbox="Sim, eu sei que isso é pirataria" 2> /dev/null
+       --checkbox="Sim, eu sei que isso é pirataria"
     fi
 
 if [[ $menu =~ "remote" ]]; then
@@ -231,7 +232,7 @@ if [[ $menu =~ "remote" ]]; then
 if [[ $menu =~ "ohmyzsh" ]]; then
     echo "Instalando o zsh + oh-my-zsh..."
     sleep 2
-    # Configurando o zsh    
+    # Configurando o zsh
     sudo apt install -y zsh
     config=$(zsh --version)
     if [[ $config ]]; then
@@ -241,7 +242,7 @@ if [[ $menu =~ "ohmyzsh" ]]; then
     echo "Algo de errado aconteceu na instalação do ZSH. Razão: $config"
     fi
     # Configurando o ohmyzsh
-    zenity --info --title "Agilize it - Aviso" --text "<big>Antes de instalar o zsh...</big>\nExecute o agilizeit.sh novamente para prosseguir com a instalação." --width=300 --height=200 2> /dev/null    
+    zenity --info --title "Agilize it - Aviso" --text "<big>Antes de instalar o zsh...</big>\nExecute o agilizeit.sh novamente para prosseguir com a instalação." --width=300 --height=200 
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     chsh -s $(which zsh)
     fi
@@ -252,7 +253,7 @@ if [[ $menu =~ "clonar" ]]; then
                 FALSE "operador" "Clonar o web app do operador"\
                     FALSE "cliente" "Clonar o web app do cliente"\
                         FALSE "mobile" "Clonar o app mobile"\
-                        --separator=":" --width=400 --height=300) 2> /dev/null
+                        --separator=":" --width=400 --height=300)
     fi
 
 if [[ $clonemenu ]]; then
@@ -260,42 +261,48 @@ if [[ $clonemenu ]]; then
     email=$(git config --global user.email $gitemail)
     verifica=$(echo $nome $email)
     if [[ $verifica ]]; then
-    zenity --info --title "Aviso - Clonar Repositórios" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email" 2> /dev/null
+    zenity --info --title "Aviso - Clonar Repositórios" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email"
     fi
     if [[ $verifica = false ]]; then
-    gitname=$(zenity --entry --title "Git - Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100) 2> /dev/null
+    gitname=$(zenity --entry --title "Git - Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100)
     git config --global user.name $gitname
-    gitemail=$(zenity --entry --title "Git - Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100) 2> /dev/null
+    gitemail=$(zenity --entry --title "Git - Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100)
     git config --global user.email $gitemail
     fi
 fi
 if [[ $clonemenu =~ "backend" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/agilize.git $HOME/agilize-repos/backend/ || zenity --error --title "Clonar backend" --text "Ocorreu um erro ao clonar o repositório do backend. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar repositórios - Backend" --text "Repositório clonado com sucesso!" 2> /dev/null
+    zenity --info --title "Clonar repositórios - Backend" --text "Repositório clonado com sucesso!"
     fi
     fi
 
 if [[ $clonemenu =~ "operador" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/operador_webapp.git $HOME/agilize-repos/operador/ || zenity --error --title "Clonar operador" --text "Ocorreu um erro ao clonar o repositório do operador. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar repositórios - Operador" --text "Repositório clonado com sucesso!" 2> /dev/null
+    zenity --info --title "Clonar repositórios - Operador" --text "Repositório clonado com sucesso!"
     fi
     fi
 
 if [[ $clonemenu =~ "cliente" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/cliente_webapp.git $HOME/agilize-repos/cliente/ || zenity --error --title "Clonar cliente" --text "Ocorreu um erro ao clonar o repositório do cliente. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar repositórios - Cliente" --text "Repositório clonado com sucesso!" 2> /dev/null
+    zenity --info --title "Clonar repositórios - Cliente" --text "Repositório clonado com sucesso!"
     fi
     fi
 
 if [[ $clonemenu =~ "mobile" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/agilize_mobile.git $HOME/agilize-repos/mobile/ || zenity --error --title "Clonar mobile" --text "Ocorreu um erro ao clonar o repositório do app mobile. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar repositórios - Mobile" --text "Repositório clonado com sucesso!" 2> /dev/null
+    zenity --info --title "Clonar repositórios - Mobile" --text "Repositório clonado com sucesso!"
     fi
     fi
 
+if [[ --cancel-label ]]; then
+    echo -e "${RED}User requested exit"
+    exit
+else
+    echo -e "${GREEN}Agilizeit instalou os pacotes selecionados. Para bugs, consulte log.txt e crie uma issue no /vaporwavie/agilizeitt"
+    fi
+
 # @TODO implementar no log os arquivos instalados
-zenity --info --title "Agilize it - Finalizado" --text "<big>Script finalizado!</big>\nOs pacotes selecionados foram instalados com sucesso. Consulte log.txt para mais informações." --width=300 --height=200 2> /dev/null
