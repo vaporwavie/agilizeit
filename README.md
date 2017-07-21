@@ -4,6 +4,12 @@ For outsiders: Hey! This repository is purely intended to my buds at Agilize. My
 # Demonstração
 ![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/demo.png)
 
+
+# Requirements
+### Git
+
+<code>sudo apt-get update && sudo apt-get install git</code>
+
 # Como instalar
 
 ### Usando cURL
