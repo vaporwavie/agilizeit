@@ -302,7 +302,7 @@ if [[ --cancel-label ]]; then
     echo -e "${RED}User requested exit"
     exit
 else
-    echo -e "${GREEN}Agilizeit instalou os pacotes selecionados. Para bugs, consulte log.txt e crie uma issue no /vaporwavie/agilizeitt"
+    echo -e "${GREEN}Agilizeit instalou os pacotes selecionados. Para bugs, consulte log.txt e crie uma issue no /vaporwavie/agilizeit"
     fi
 
 # @TODO implementar no log os arquivos instalados
