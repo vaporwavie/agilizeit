@@ -5,7 +5,7 @@ For outsiders: Hey! This repository is purely intended to my buds at Agilize. My
 ![agilizeit screenshot](https://raw.githubusercontent.com/vaporwavie/agilizeit/master/demo.png)
 
 
-# Requirements
+# Requisitos
 ### Git
 
 <code>sudo apt-get update && sudo apt-get install git</code>
@@ -23,7 +23,7 @@ For outsiders: Hey! This repository is purely intended to my buds at Agilize. My
 <code>wget -qO- https://raw.githubusercontent.com/vaporwavie/agilizeit.sh/master/install.sh | bash</code>
 
 # Como atualizo o script?
-Depois da instalação, é possível verificar atualizações digitando <code>$agzitupdate</code> no terminal.
+Depois da instalação, é possível verificar atualizações digitando <code>agilizeit-update</code> no terminal.
 
 # License
 [LICENSE](LICENSE)
