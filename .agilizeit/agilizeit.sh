@@ -10,7 +10,7 @@ exec > >(tee -i log.txt)
 exec 2>&1
 
 menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
-        FALSE "git" "Instalar o Git + Git Flow"\
+        FALSE "git" "Instalar o Git Flow"\
             FALSE "docker" "Instalar o Docker + Compose"\
                 FALSE "apache5" "Instalar o Apache + PHP5"\
                     FALSE "javen" "Instalar o Java + Maven"\
@@ -64,7 +64,7 @@ clear
     fi
 
 if [[ $menu =~ "git" ]]; then
-    echo "Instalando o Git e o Git flow..."
+    echo "Instalando o Git flow..."
     sleep 1
     sudo apt install -y git-flow
     fi
