@@ -10,8 +10,9 @@ exec > >(tee -i log.txt)
 exec 2>&1
 
 # Colors
-RED='\033[0;31m'
-GREEN='\033[0;32'
+ERROR='\033[0;31m'
+SUCCESS='\033[0;32'
+WARNING='\033[0;33m'
 
 menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
         FALSE "gitflow" "Instalar o Git Flow"\
@@ -299,10 +300,11 @@ if [[ $clonemenu =~ "mobile" ]]; then
     fi
 
 if [[ --cancel-label ]]; then
-    echo -e "${RED}User requested exit"
     exit
-else
-    echo -e "${GREEN}Agilizeit instalou os pacotes selecionados. Para bugs, consulte log.txt e crie uma issue no /vaporwavie/agilizeit"
+    fi
+
+if [[ $menu ]]; then
+    echo -e "${WARNING}O script concluiu as instalações, mas não foi possível verificar sua granulidade. Caso um erro tenha ocorrido, tente novamente ou abra uma issue no repo do projeto."
     fi
 
 # @TODO implementar no log os arquivos instalados
