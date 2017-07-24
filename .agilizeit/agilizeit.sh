@@ -24,22 +24,23 @@ if [[ $UPDATER ]]; then
 
 menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar.\n$RETURN" --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
         FALSE "gitflow" "Instalar o Git Flow"\
-            FALSE "docker" "Instalar o Docker + Compose"\
-                FALSE "apache5" "Instalar o Apache + PHP5"\
-                    FALSE "javen" "Instalar o Java + Maven"\
-                        FALSE "exterminador" "Instalar o Terminator"\
-                            FALSE "slack" "Instalar o Slack"\
-                                FALSE "chrome" "Instalar o Chrome"\
-                                    FALSE "vscode" "Instalar o Visual Studio Code"\
-                                      FALSE "vim" "Instalar o Vim + mod (vim bootstrap)"\
-                                          FALSE "sublime" "Instalar o Sublime Text"\
-                                              FALSE "spotify" "Instalar o Spotify"\
-                                                  FALSE "eclipse" "Instalar o Eclipse"\
-                                                      FALSE "npm" "Instalar o Node + NPM"\
-                                                          FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
-                                                              FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                                  FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
-                                                                      FALSE "clonar" "Clonar repositórios"\
+            FALSE "docker" "Instalar o Docker"\
+                FALSE "compose" "Instalar o Docker Compose"\
+                    FALSE "apache5" "Instalar o Apache + PHP5"\
+                        FALSE "javen" "Instalar o Java + Maven"\
+                            FALSE "exterminador" "Instalar o Terminator"\
+                                FALSE "slack" "Instalar o Slack"\
+                                    FALSE "chrome" "Instalar o Chrome"\
+                                        FALSE "vscode" "Instalar o Visual Studio Code"\
+                                            FALSE "vim" "Instalar o Vim + mod (vim bootstrap)"\
+                                                FALSE "sublime" "Instalar o Sublime Text"\
+                                                 FALSE "spotify" "Instalar o Spotify"\
+                                                      FALSE "eclipse" "Instalar o Eclipse"\
+                                                          FALSE "npm" "Instalar o Node + NPM"\
+                                                              FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
+                                                                  FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+                                                                      FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+                                                                          FALSE "clonar" "Clonar repositórios"\
                                                                     --separator=":" --width=600 --height=550
 )
 
@@ -97,8 +98,9 @@ if [[ $menu =~ "docker" ]]; then
     newgrp docker
     docker run hello-world
     sleep 1
-    clear
-    echo "Done! Configurando o docker-compose com permissões"
+fi
+
+if [[ $menu =~ "compose" ]]; then
     sudo apt install -y curl
     LATEST=$(1.14.0-rc2) # Atualizar isso a cada update pertinente do compose
     curl -L https://github.com/docker/compose/releases/download/$LATEST/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
@@ -111,7 +113,7 @@ if [[ $menu =~ "docker" ]]; then
     if [[ $vercompose ]]; then
         zenity --info --title "Aviso - Docker Compose" --text "O docker compose parece estar funcionando sem problemas.\nRazão: $vercompose"
     fi
-    fi
+fi
 
 if [[ $menu =~ "apache5" ]]; then
     echo " Instalando o Apache e o PHP5"
