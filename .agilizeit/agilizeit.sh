@@ -314,7 +314,7 @@ if [[ --cancel-label ]]; then
     fi
 
 if [[ $menu ]]; then
-    echo -e "${WARNING}O script concluiu as instalações, mas não foi possível verificar sua granulidade. Caso um erro tenha ocorrido, tente novamente ou abra uma issue no repo do projeto."
+    echo -e "${WARNING}O script concluiu as instalações, mas não foi possível verificar sua granularidade. Caso um erro tenha ocorrido, tente novamente ou abra uma issue no repo do projeto."
     fi
 
 # @TODO implementar no log os arquivos instalados
