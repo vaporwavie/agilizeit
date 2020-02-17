@@ -17,10 +17,10 @@ DO_SOURCE=$(source ~/.zshrc)
 
 # Main variable
 INSTALL=$(
-$CLONE_URL
-$ALIAS_CONFIG
-$ALIAS_UPDATE_CONFIG
-$DO_SOURCE
+    $CLONE_URL
+    $ALIAS_CONFIG
+    $ALIAS_UPDATE_CONFIG
+    $DO_SOURCE
 )
 
 # Status

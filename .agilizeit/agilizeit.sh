@@ -16,74 +16,74 @@ WARNING='\033[0;33m'
 
 menu=$(zenity --title "Agilize it"  --list  --text "<big>Bem vindo!</big>\nSelecione os pacotes que deseja instalar." --checklist  --column "Selecionar" --column "ID" --column "Pacote" --ok-label="OK" --cancel-label="Sair"\
         FALSE "gitflow" "Instalar o Git Flow"\
-            FALSE "docker" "Instalar o Docker"\
-                FALSE "compose" "Instalar o Docker Compose"\
-                    FALSE "apache5" "Instalar o Apache + PHP5"\
-                        FALSE "javen" "Instalar o Java + Maven"\
-                            FALSE "exterminador" "Instalar o Terminator"\
-                                FALSE "slack" "Instalar o Slack"\
-                                    FALSE "chrome" "Instalar o Chrome"\
-                                        FALSE "vscode" "Instalar o Visual Studio Code"\
-                                            FALSE "vim" "Instalar o Vim + mod (vim bootstrap)"\
-                                                FALSE "sublime" "Instalar o Sublime Text"\
-                                                 FALSE "spotify" "Instalar o Spotify"\
-                                                      FALSE "eclipse" "Instalar o Eclipse"\
-                                                          FALSE "npm" "Instalar o Node + NPM"\
-                                                              FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
-                                                                  FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
-                                                                      FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
-                                                                          FALSE "clonar" "Clonar repositórios"\
-                                                                    --separator=":" --width=600 --height=550
+        FALSE "docker" "Instalar o Docker"\
+        FALSE "compose" "Instalar o Docker Compose"\
+        FALSE "apache5" "Instalar o Apache + PHP5"\
+        FALSE "javen" "Instalar o Java + Maven"\
+        FALSE "exterminador" "Instalar o Terminator"\
+        FALSE "slack" "Instalar o Slack"\
+        FALSE "chrome" "Instalar o Chrome"\
+        FALSE "vscode" "Instalar o Visual Studio Code"\
+        FALSE "vim" "Instalar o Vim + mod (vim bootstrap)"\
+        FALSE "sublime" "Instalar o Sublime Text"\
+        FALSE "spotify" "Instalar o Spotify"\
+        FALSE "eclipse" "Instalar o Eclipse"\
+        FALSE "npm" "Instalar o Node + NPM"\
+        FALSE "phpstorm" "Instalar o PHPStorm + Licença"\
+        FALSE "remote" "Baixar o Google Remote Desktop (Link)"\
+        FALSE "ohmyzsh" "Instalar o ZSH + Oh-my-zsh"\
+        FALSE "clonar" "Clonar repositórios"\
+        --separator=":" --width=600 --height=550
 )
 
 if [[ $menu ]]; then
-(
-echo "20" ; sleep 1
-echo "Verificando build-essential"
-sudo apt install -y build-essential ;
-echo "40" ; sleep 1
-echo "Verificando curl"
-sudo apt install -y curl ;
-echo "80" ; sleep 1
-echo "Verificando pacotes quebrados"
-sudo apt -f -y install ;
-echo "100" ; sleep 1
-) |
-zenity --progress \
-  --title="Etapa de verificação" \
-  --text="Por favor, aguarde..." \
-  --cancel-label="Fechar" \
-  --percentage=10 \
-  --auto-close
+    (
+        echo "20" ; sleep 1
+        echo "Verificando build-essential"
+        sudo apt install -y build-essential ;
+        echo "40" ; sleep 1
+        echo "Verificando curl"
+        sudo apt install -y curl ;
+        echo "80" ; sleep 1
+        echo "Verificando pacotes quebrados"
+        sudo apt -f -y install ;
+        echo "100" ; sleep 1
+    ) |
+    zenity --progress \
+        --title="Etapa de verificação" \
+        --text="Por favor, aguarde..." \
+        --cancel-label="Fechar" \
+        --percentage=10 \
+        --auto-close
 
-echo "Atualizando os repositórios..."
-sudo apt --quiet --yes update
-echo "Concluído!"
-echo "Atualizando pacotes..."
-sudo apt --quiet --yes  upgrade
-echo "Concluído!"
-clear
+    echo "Atualizando os repositórios..."
+    sudo apt --quiet --yes update
+    echo "Concluído!"
+    echo "Atualizando pacotes..."
+    sudo apt --quiet --yes  upgrade
+    echo "Concluído!"
+    clear
 
-    fi
+fi
 
 if [[ $menu =~ "git" ]]; then
     echo "Instalando o Git flow..."
     sleep 1
     sudo apt install -y git-flow
-    fi
+fi
 
 if [[ $menu =~ "docker" ]]; then
     echo "Configurando repositório e permissões do Docker..."
     sleep 1
     sudo apt-get -y install \
-    apt-transport-https \
-    ca-certificates \
-    curl
+        apt-transport-https \
+        ca-certificates \
+        curl
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     sudo add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
        $(lsb_release -cs) \
-       stable"
+        stable"
     sudo apt update && sudo apt install -y docker-ce
     sudo groupadd docker
     sudo gpasswd -a $USER docker
@@ -118,7 +118,7 @@ if [[ $menu =~ "apache5" ]]; then
 
     echo " Vendo se tá tudo bem com o PHP "
     php -v
-    fi
+fi
 
 if [[ $menu =~ "javen" ]]; then
     echo " Instalando o Java... Reze por sua RAM "
@@ -128,7 +128,7 @@ if [[ $menu =~ "javen" ]]; then
     echo " Instalando Maven... "
     sleep 2
     sudo apt install -y maven
-    fi
+fi
 
 # Aplicativos que amamos! <3
 
@@ -136,7 +136,7 @@ if [[ $menu =~ "exterminador" ]]; then
     echo " Instalando o Terminator... (Rlx, não é aquele do Exterminador do Futuro)"
     sleep 3
     sudo apt install -y terminator
-    fi
+fi
 
 if [[ $menu =~ "chrome" ]]; then
     echo " Baixando e Instalando o Chrome "
@@ -144,7 +144,7 @@ if [[ $menu =~ "chrome" ]]; then
     wget -O $HOME/Downloads/chrome.deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
     sudo dpkg -i $HOME/Downloads/chrome.deb
     sudo apt-get -f -y install
-    fi
+fi
 
 if [[ $menu =~ "slack" ]]; then
     echo " Baixando e Instalando o Slack... "
@@ -152,7 +152,7 @@ if [[ $menu =~ "slack" ]]; then
     wget -O $HOME/Downloads/slack.deb "https://downloads.slack-edge.com/linux_releases/slack-desktop-2.4.2-amd64.deb"
     sudo dpkg -i $HOME/Downloads/slack.deb
     sudo apt-get -f -y install
-    fi
+fi
 
 if [[ $menu =~ "vscode" ]]; then
     echo " Baixando e Instalando o VSCode..."
@@ -161,14 +161,14 @@ if [[ $menu =~ "vscode" ]]; then
     wget -O $HOME/Downloads/code.deb "https://az764295.vo.msecnd.net/stable/ee428b0eead68bf0fb99ab5fdc4439be227b6281/code_1.8.1-1482158209_amd64.deb"
     sudo dpkg -i $HOME/Downloads/code.deb
     sudo apt-get -f -y install
-    fi
+fi
 
 if [[ $menu =~ "vim" ]]; then
-  echo "Instalando o vim..."
-  sudo apt install -y vim
-  echo "Done! Adicionando mods pro vim..."
-  mv generate.vim ~/.vimrc
-  echo "Pronto! Para executar o vim e confirmar os mods, basta digitar 'vim' no terminal."
+    echo "Instalando o vim..."
+    sudo apt install -y vim
+    echo "Done! Adicionando mods pro vim..."
+    mv generate.vim ~/.vimrc
+    echo "Pronto! Para executar o vim e confirmar os mods, basta digitar 'vim' no terminal."
 fi
 
 if [[ $menu =~ "sublime" ]]; then
@@ -177,7 +177,7 @@ if [[ $menu =~ "sublime" ]]; then
 
     wget -O $HOME/Downloads/sublime.deb "https://download.sublimetext.com/sublime-text_build-3126_amd64.deb"
     sudo dpkg -i $HOME/Downloads/sublime.deb
-    fi
+fi
 
 if [[ $menu =~ "spotify" ]]; then
     echo "Instalando o Spotify..."
@@ -186,7 +186,7 @@ if [[ $menu =~ "spotify" ]]; then
     echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
     sudo apt update
     sudo apt install -y spotify-client
-    fi
+fi
 
 if [[ $menu =~ "eclipse" ]]; then
     wget -O $HOME/Downloads/eclipse.tar.gz "http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/2/eclipse-java-neon-2-linux-gtk-x86_64.tar.gz"
@@ -194,7 +194,7 @@ if [[ $menu =~ "eclipse" ]]; then
     cd $HOME/Downloads/eclipse/
     chmod +x eclipse
     ./eclipse
-    fi
+fi
 
 if [[ $menu =~ "npm" ]]; then
     echo "Instalando o Nodejs"
@@ -220,17 +220,17 @@ if [[ $menu =~ "phpstorm" ]]; then
     ./phpstorm.sh
     wget -O chave.key "http://us.idea.lanyus.com/getkey?userName=agilibrains"
     zenity --text-info \
-       --title="Licença PHPStorm" \
-       --filename=chave.key \
-       --checkbox="Sim, eu sei que isso é pirataria"
-    fi
+        --title="Licença PHPStorm" \
+        --filename=chave.key \
+        --checkbox="Sim, eu sei que isso é pirataria"
+fi
 
 if [[ $menu =~ "remote" ]]; then
     echo "O Chrome ainda não permite instalação de extensões via terminal"
     echo "Abrindo loja de extensões da Google..."
     sleep 2
     python -mwebbrowser https://goo.gl/YFNOCF
-    fi
+fi
 
 if [[ $menu =~ "ohmyzsh" ]]; then
     echo "Instalando o zsh + oh-my-zsh..."
@@ -239,74 +239,74 @@ if [[ $menu =~ "ohmyzsh" ]]; then
     sudo apt install -y zsh
     config=$(zsh --version)
     if [[ $config ]]; then
-    echo $config;
+        echo $config;
     fi
     if [[ $config = false ]]; then
-    echo "Algo de errado aconteceu na instalação do ZSH. Razão: $config"
+        echo "Algo de errado aconteceu na instalação do ZSH. Razão: $config"
     fi
     # Configurando o ohmyzsh
-    zenity --info --title "Agilize it - Aviso" --text "<big>Antes de instalar o zsh...</big>\nExecute o agilizeit.sh novamente para prosseguir com a instalação." --width=300 --height=200 
+    zenity --info --title "Agilize it - Aviso" --text "<big>Antes de instalar o zsh...</big>\nExecute o agilizeit.sh novamente para prosseguir com a instalação." --width=300 --height=200
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     chsh -s $(which zsh)
-    fi
+fi
 
 if [[ $menu =~ "clonar" ]]; then
     clonemenu=$(zenity --title "Clonar Repositórios"  --list  --text "Selecione os repositórios a serem clonados." --checklist  --column "Selecionar" --column "ID" --column "Repositório" --ok-label="OK" --cancel-label="Fechar"\
             FALSE "backend" "Clonar o backend (api/agilize)"\
-                FALSE "operador" "Clonar o web app do operador"\
-                    FALSE "cliente" "Clonar o web app do cliente"\
-                        FALSE "mobile" "Clonar o app mobile"\
-                        --separator=":" --width=400 --height=300)
-    fi
+            FALSE "operador" "Clonar o web app do operador"\
+            FALSE "cliente" "Clonar o web app do cliente"\
+            FALSE "mobile" "Clonar o app mobile"\
+        --separator=":" --width=400 --height=300)
+fi
 
 if [[ $clonemenu ]]; then
     nome=$(git config --global user.name $gitname)
     email=$(git config --global user.email $gitemail)
     verifica=$(echo $nome $email)
     if [[ $verifica ]]; then
-    zenity --info --title "Aviso - Clonar Repositórios" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email"
+        zenity --info --title "Aviso - Clonar Repositórios" --text "Os dados do git já haviam sido cadastrados. \n Nome: $nome \n Email: $email"
     fi
     if [[ $verifica = false ]]; then
-    gitname=$(zenity --entry --title "Git - Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100)
-    git config --global user.name $gitname
-    gitemail=$(zenity --entry --title "Git - Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100)
-    git config --global user.email $gitemail
+        gitname=$(zenity --entry --title "Git - Configurando seu nome" --text "Qual é o seu nome?" --width=200 --height=100)
+        git config --global user.name $gitname
+        gitemail=$(zenity --entry --title "Git - Configurando seu email" --text "Qual é o seu email?" --width=200 --height=100)
+        git config --global user.email $gitemail
     fi
 fi
 if [[ $clonemenu =~ "backend" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/agilize.git $HOME/agilize-repos/backend/ || zenity --error --title "Clonar backend" --text "Ocorreu um erro ao clonar o repositório do backend. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar repositórios - Backend" --text "Repositório clonado com sucesso!"
+        zenity --info --title "Clonar repositórios - Backend" --text "Repositório clonado com sucesso!"
     fi
-    fi
+fi
 
 if [[ $clonemenu =~ "operador" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/operador_webapp.git $HOME/agilize-repos/operador/ || zenity --error --title "Clonar operador" --text "Ocorreu um erro ao clonar o repositório do operador. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar repositórios - Operador" --text "Repositório clonado com sucesso!"
+        zenity --info --title "Clonar repositórios - Operador" --text "Repositório clonado com sucesso!"
     fi
-    fi
+fi
 
 if [[ $clonemenu =~ "cliente" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/cliente_webapp.git $HOME/agilize-repos/cliente/ || zenity --error --title "Clonar cliente" --text "Ocorreu um erro ao clonar o repositório do cliente. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar repositórios - Cliente" --text "Repositório clonado com sucesso!"
+        zenity --info --title "Clonar repositórios - Cliente" --text "Repositório clonado com sucesso!"
     fi
-    fi
+fi
 
 if [[ $clonemenu =~ "mobile" ]]; then
     cloning=$(git clone git@bitbucket.org:apimenti/agilize_mobile.git $HOME/agilize-repos/mobile/ || zenity --error --title "Clonar mobile" --text "Ocorreu um erro ao clonar o repositório do app mobile. Verifique se ele já foi clonado ou tente novamente.")
     if [[ $cloning ]]; then
-    zenity --info --title "Clonar repositórios - Mobile" --text "Repositório clonado com sucesso!"
+        zenity --info --title "Clonar repositórios - Mobile" --text "Repositório clonado com sucesso!"
     fi
-    fi
+fi
 
 if [[ --cancel-label ]]; then
     exit
-    fi
+fi
 
 if [[ $menu ]]; then
     echo -e "${WARNING}O script concluiu as instalações, mas não foi possível verificar sua granularidade. Caso um erro tenha ocorrido, tente novamente ou abra uma issue no repo do projeto."
-    fi
+fi
 
 # @TODO implementar no log os arquivos instalados
